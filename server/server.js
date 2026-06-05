@@ -13,7 +13,7 @@ import scanRouter from './routes/scanRoutes.js' // All /api/scan routes
 
 const app = express() // Create the Express application instance
 
-const PORT = process.env.PORT || 4000 // Use PORT from .env or fallback to 4000
+const PORT = process.env.PORT || 8000 // Use PORT from .env or fallback to 8000
 
 // ---- Middleware ----
 // Middleware runs on EVERY request before it reaches the route handler
