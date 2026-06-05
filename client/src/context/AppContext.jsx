@@ -31,6 +31,10 @@ export default function AppContextProvider({ children }) {
   // true while a scan API call is in progress
   // Used to disable buttons and show spinner during scan submission
 
+  const [initialAuthMode, setInitialAuthMode] = useState('Login')
+  // Tells Login modal whether to start in 'Login' or 'Register' mode
+  // Set by Navbar: Login button sets to 'Login', Get Started sets to 'Register'
+
   // Backend URL from environment variable (client/.env has VITE_BACKEND_URL)
   const backendUrl = import.meta.env.VITE_BACKEND_URL
 
@@ -204,6 +208,9 @@ export default function AppContextProvider({ children }) {
 
     // Login modal state
     showLogin, setShowLogin,
+
+    // Initial auth mode (Login or Register)
+    initialAuthMode, setInitialAuthMode,
 
     // Authentication token
     token, setToken,

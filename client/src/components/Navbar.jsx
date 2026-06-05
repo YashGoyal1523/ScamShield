@@ -9,7 +9,7 @@ import { AppContext } from '../context/AppContext.jsx'
 
 const Navbar = () => {
   // Get auth state and functions from global context
-  const { user, token, setShowLogin, logout } = useContext(AppContext)
+  const { user, token, setShowLogin, setInitialAuthMode, logout } = useContext(AppContext)
 
   // Control dropdown visibility — true = dropdown is open, false = closed
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -135,17 +135,23 @@ const Navbar = () => {
         // USER IS NOT LOGGED IN — show Login and Get Started buttons
         <div className="flex items-center gap-3">
 
-          {/* Login link — opens login modal */}
+          {/* Login link — opens login modal in Login mode */}
           <button
-            onClick={() => setShowLogin(true)}
+            onClick={() => {
+              setInitialAuthMode('Login')
+              setShowLogin(true)
+            }}
             className="text-gray-400 hover:text-white text-sm transition-colors"
           >
             Login
           </button>
 
-          {/* Get Started button — opens login modal and navigates to dashboard after login */}
+          {/* Get Started button — opens login modal in Register mode */}
           <button
-            onClick={() => setShowLogin(true)}
+            onClick={() => {
+              setInitialAuthMode('Register')
+              setShowLogin(true)
+            }}
             className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg transition-colors"
           >
             Get Started

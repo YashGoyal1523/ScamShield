@@ -3,14 +3,17 @@
 // Appears as a modal overlay when user clicks Login or Get Started
 // ============================================================
 
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { AppContext } from '../context/AppContext.jsx'
 
 const Login = () => {
-  // Toggle between 'Login' and 'Register' modes
-  const [state, setState] = useState('Login')
+  // Get initial auth mode from context (set by Navbar: 'Login' or 'Register')
+  const { setUser, setShowLogin, setToken, initialAuthMode, backendUrl } = useContext(AppContext)
+
+  // Toggle between 'Login' and 'Register' modes — starts with initialAuthMode from context
+  const [state, setState] = useState(initialAuthMode)
 
   // Form field states — controlled components, React manages their values
   const [name, setName] = useState('')
@@ -20,8 +23,11 @@ const Login = () => {
   // Prevent double-submit — disabled button while request is pending
   const [loading, setLoading] = useState(false)
 
-  // Get functions to update global auth state after successful login/register
-  const { setUser, setShowLogin, setToken, backendUrl } = useContext(AppContext)
+  // Sync state with initialAuthMode when modal reopens with different mode
+  // Example: user clicks Login, sees login form, closes modal, clicks Get Started, sees signup form
+  useEffect(() => {
+    setState(initialAuthMode)
+  }, [initialAuthMode])
 
   // Form submission handler — runs on Register or Login button click
   const onSubmitHandler = async (e) => {
