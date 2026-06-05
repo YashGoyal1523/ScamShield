@@ -1,0 +1,115 @@
+# ============================================================
+# .gitignore for ScamShield (MERN Stack)
+# Never commit: dependencies, secrets, build files, logs, IDE configs
+# ============================================================
+
+# ---- ENVIRONMENT & SECRETS ----
+# NEVER commit .env files — they contain:
+# - MONGODB_URI (database credentials)
+# - JWT_SECRET (signing key for tokens)
+# - GEMINI_API_KEY (AI model API key)
+# - VIRUSTOTAL_API_KEY (malware scanning API key)
+.env
+.env.local
+.env.*.local
+.env.example
+.env.test.local
+
+# ---- DEPENDENCIES ----
+# node_modules directory is large (hundreds of MB)
+# yarn.lock and package-lock.json should be committed ONLY for production
+# but not needed in this repo structure — regenerate with npm install
+node_modules/
+package-lock.json
+yarn.lock
+
+# ---- BUILD & DIST ----
+# Output directories for compiled/bundled code
+dist/
+build/
+out/
+.next/
+coverage/
+
+# ---- LOGS ----
+# Log files from npm, yarn, Node.js
+logs/
+*.log
+npm-debug.log*
+npm-error.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# ---- IDE & EDITOR ----
+# Visual Studio Code
+.vscode/
+.vscode-insiders/
+*.code-workspace
+
+# JetBrains (WebStorm, IntelliJ)
+.idea/
+.idea_modules/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+.sublime-project
+.sublime-workspace
+
+# Vim / Vi
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+.#*
+
+# ---- OS FILES ----
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+
+# ---- TESTING ----
+coverage/
+.nyc_output/
+.coverage/
+htmlcov/
+
+# ---- TEMPORARY & CACHE ----
+*.tmp
+*.temp
+.cache/
+.eslintcache
+.node_repl_history
+*.tsbuildinfo
+
+# ---- DATABASE ----
+# Local MongoDB data (if running locally)
+data/
+mongodb/
+
+# ---- VITE/WEBPACK ----
+# Vite temp and cache
+.vite/
+.viteignore
+
+# ---- MISCELLANEOUS ----
+.env.prod.local
+.env.dev.local
+.config
+tmp/
+temp/
+

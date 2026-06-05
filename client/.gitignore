@@ -1,0 +1,79 @@
+# ============================================================
+# client/.gitignore
+# Frontend-specific ignores for React/Vite application
+# ============================================================
+
+# ---- ENVIRONMENT ----
+# NEVER commit .env — contains backend URL and secrets
+.env
+.env.local
+.env.*.local
+.env.example
+
+# ---- DEPENDENCIES ----
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ---- BUILD OUTPUT ----
+# Vite builds to dist/ directory
+dist/
+dist-ssr/
+*.local
+build/
+out/
+
+# ---- LOGS ----
+logs/
+*.log
+npm-debug.log*
+npm-error.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ---- IDE & EDITOR ----
+# Visual Studio Code
+.vscode/
+.vscode-insiders/
+*.code-workspace
+
+# JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime
+.sublime-project
+.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# ---- OS FILES ----
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+
+# ---- VITE CACHE ----
+.vite/
+.viteignore
+
+# ---- TESTING ----
+coverage/
+.nyc_output/
+
+# ---- CACHE ----
+.cache/
+.eslintcache
+
+# ---- TEMP FILES ----
+*.tmp
+*.temp
+tmp/
+temp/
