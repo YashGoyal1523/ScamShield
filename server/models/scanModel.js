@@ -5,13 +5,6 @@
 
 import mongoose from 'mongoose'
 
-// Sub-schema for individual red flags found in scanned content
-// Each red flag has a title and explanation
-const redFlagSchema = new mongoose.Schema({
-  flag: String,        // Short title e.g. "Urgency Language"
-  explanation: String  // Detailed explanation e.g. "Uses 'act now' to pressure victim"
-}, { _id: false })     // _id: false — red flags don't need their own MongoDB IDs
-
 // Main schema for a scan document
 const scanSchema = new mongoose.Schema({
 
@@ -53,7 +46,12 @@ const scanSchema = new mongoose.Schema({
     required: true // Gemini's 2-3 sentence written explanation
   },
 
-  redFlags: [redFlagSchema], // Array of red flag objects — empty array for SAFE verdicts
+  redFlags: [{
+    flag: String,        // Short title e.g. "Urgency Language"
+    explanation: String, // Detailed explanation e.g. "Uses 'act now' to pressure victim"
+    _id: false           // Red flags don't need their own MongoDB IDs
+  }],
+  // Empty array for SAFE verdicts
 
   suggestions: [String], // Array of safety advice strings from Gemini
 
