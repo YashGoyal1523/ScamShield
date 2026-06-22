@@ -115,6 +115,39 @@ const Dashboard = () => {
         <p className="text-gray-500 text-sm mt-1">Your scan overview and analytics</p>
       </div>
 
+      {/* ========== SCAN SHORTCUT BUTTONS ========== */}
+      {/* Quick access to start a new scan of each type */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-white font-medium text-sm">Run a New Scan</h3>
+        </div>
+
+        {/* 6 buttons for each scan type */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          {scanTypes.map((type) => (
+            // Link to the specific scan page (e.g., /scan/email)
+            <Link
+              key={type.id}
+              to={type.path}
+              className="bg-[#1a1a1a] border border-white/10 hover:border-white/20 rounded-xl p-4 text-center transition-all hover:bg-[#222] group"
+            >
+              {/* Colored icon badge */}
+              <div
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold mx-auto mb-2"
+                style={{ backgroundColor: type.color + '20', color: type.color }}
+              >
+                {type.icon}  {/* e.g., "MSG", "EMAIL", "URL" */}
+              </div>
+
+              {/* Scan type label */}
+              <p className="text-gray-400 text-xs group-hover:text-white transition-colors">
+                {type.label}  {/* e.g., "Text / Message", "Email" */}
+              </p>
+            </Link>
+          ))}
+        </div>
+      </div>
+
       {/* ========== STAT CARDS ========== */}
       {/* 4 cards showing key metrics: Total, Scams, Suspicious, Safe */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -245,39 +278,6 @@ const Dashboard = () => {
           </ResponsiveContainer>
         </div>
       )}
-
-      {/* ========== SCAN SHORTCUT BUTTONS ========== */}
-      {/* Quick access to start a new scan of each type */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-white font-medium text-sm">Run a New Scan</h3>
-        </div>
-
-        {/* 6 buttons for each scan type */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          {scanTypes.map((type) => (
-            // Link to the specific scan page (e.g., /scan/email)
-            <Link
-              key={type.id}
-              to={type.path}
-              className="bg-[#1a1a1a] border border-white/10 hover:border-white/20 rounded-xl p-4 text-center transition-all hover:bg-[#222] group"
-            >
-              {/* Colored icon badge */}
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold mx-auto mb-2"
-                style={{ backgroundColor: type.color + '20', color: type.color }}
-              >
-                {type.icon}  {/* e.g., "MSG", "EMAIL", "URL" */}
-              </div>
-
-              {/* Scan type label */}
-              <p className="text-gray-400 text-xs group-hover:text-white transition-colors">
-                {type.label}  {/* e.g., "Text / Message", "Email" */}
-              </p>
-            </Link>
-          ))}
-        </div>
-      </div>
 
       {/* ========== RECENT SCANS ========== */}
       {/* List of user's 5 most recent scans with results */}
