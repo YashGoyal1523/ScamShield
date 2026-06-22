@@ -9,7 +9,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { AppContext } from '../context/AppContext.jsx'
-import { verdictConfig, scanTypeLabels, scanTypes } from '../assets/assets.js'
+import { verdictConfig, scanTypeLabels } from '../assets/assets.js'
 import ResultPanel from '../components/ResultPanel.jsx'
 
 // Filter options
@@ -18,7 +18,7 @@ const VERDICTS = ['all', 'SCAM', 'SUSPICIOUS', 'SAFE']
 
 const History = () => {
   // Get auth state from global context
-  const { token, backendUrl, setShowLogin } = useContext(AppContext)
+  const { token, backendUrl } = useContext(AppContext)
 
   // ---- PAGE STATE ----
   const [scans, setScans] = useState([])              // List of scans on current page
