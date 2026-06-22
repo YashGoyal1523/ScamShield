@@ -380,19 +380,16 @@ const Dashboard = () => {
             <div className="sticky top-0 flex justify-end p-4 bg-[#1a1a1a]/95 border-b border-white/10">
               <button
                 onClick={handleClosePanel}
-                className="text-gray-500 hover:text-white text-2xl transition-colors"
+                className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 text-gray-400 hover:text-white transition-all duration-200 group"
               >
-                ✕
+                <svg className="w-4 h-4 group-hover:rotate-90 transition-transform duration-200" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </button>
             </div>
 
-            {/* ResultPanel with isModal={true} */}
-            <ResultPanel
-              scan={selectedScanDetails}
-              loading={panelLoading}
-              isModal={true}
-              onClose={handleClosePanel}
-            />
+            {/* ResultPanel */}
+            <ResultPanel scan={selectedScanDetails} loading={panelLoading} />
           </div>
         </div>
       )}

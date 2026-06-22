@@ -4,12 +4,12 @@
 // ============================================================
 
 import { useContext, useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { AppContext } from '../context/AppContext.jsx'
 import ResultPanel from '../components/ResultPanel.jsx'
-import { scanTypeLabels } from '../assets/assets.js'
+import { scanTypeLabels, scanTypes } from '../assets/assets.js'
 
 const Result = () => {
   const { id } = useParams()
@@ -76,13 +76,46 @@ ${scan.suggestions.map((s, i) => `${i + 1}. ${s}`).join('\n')}`
   }
 
   return (
-    <ResultPanel
-      scan={scan}
-      loading={loading}
-      copied={copied}
-      onCopyReport={copyReport}
-      isModal={false}
-    />
+    <div className="max-w-3xl mx-auto px-6 py-12">
+      <ResultPanel scan={scan} loading={loading} />
+
+      {/* ========== ACTION BUTTONS ========== */}
+      {!loading && scan && (
+        <div className="flex flex-col sm:flex-row gap-3 mt-6">
+          {/* COPY REPORT */}
+          <button
+            onClick={copyReport}
+            className="flex-1 bg-white/10 hover:bg-white/15 text-white py-3 rounded-xl font-medium text-sm transition-colors"
+          >
+            {copied ? 'Copied!' : 'Copy Report'}
+          </button>
+
+          {/* SCAN AGAIN */}
+          <Link
+            to={scanTypes.find(t => t.id === scan.type)?.path || '/dashboard'}
+            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-medium text-sm transition-colors text-center"
+          >
+            Scan Again
+          </Link>
+
+          {/* NEW SCAN */}
+          <Link
+            to="/dashboard"
+            className="flex-1 bg-white/10 hover:bg-white/15 text-white py-3 rounded-xl font-medium text-sm transition-colors text-center"
+          >
+            New Scan
+          </Link>
+
+          {/* VIEW HISTORY */}
+          <Link
+            to="/history"
+            className="flex-1 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white py-3 rounded-xl font-medium text-sm transition-colors text-center border border-white/10"
+          >
+            View History
+          </Link>
+        </div>
+      )}
+    </div>
   )
 }
 

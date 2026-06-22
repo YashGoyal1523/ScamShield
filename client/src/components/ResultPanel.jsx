@@ -6,11 +6,10 @@
 // ============================================================
 
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import ScamMeter from './ScamMeter.jsx'
-import { verdictConfig, scanTypeLabels, scanTypes } from '../assets/assets.js'
+import { verdictConfig, scanTypeLabels } from '../assets/assets.js'
 
-const ResultPanel = ({ scan, loading = false, onClose = null, isModal = false, copied = false, onCopyReport = null }) => {
+const ResultPanel = ({ scan, loading = false }) => {
   const [expandedFlags, setExpandedFlags] = useState({})
 
   const toggleFlag = (i) => {
@@ -32,7 +31,7 @@ const ResultPanel = ({ scan, loading = false, onClose = null, isModal = false, c
   const verdict = verdictConfig[scan.verdict]
 
   return (
-    <div className={isModal ? "p-6" : "max-w-3xl mx-auto px-6 py-12 animate-fade-in"}>
+    <div className="p-6">
 
       {/* ========== VERDICT BANNER ========== */}
       <div className={`rounded-2xl p-6 mb-6 border ${verdict.bg} ${verdict.border}`}>
@@ -124,35 +123,6 @@ const ResultPanel = ({ scan, loading = false, onClose = null, isModal = false, c
         </div>
       )}
 
-      {/* ========== ACTION BUTTONS (Only on Result page, not modal) ========== */}
-      {!isModal && (
-        <div className="flex flex-col sm:flex-row gap-3">
-          <button
-            onClick={onCopyReport}
-            className="flex-1 bg-white/10 hover:bg-white/15 text-white py-3 rounded-xl font-medium text-sm transition-colors"
-          >
-            {copied ? 'Copied!' : 'Copy Report'}
-          </button>
-          <Link
-            to={scanTypes.find(t => t.id === scan.type)?.path || '/dashboard'}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-medium text-sm transition-colors text-center"
-          >
-            Scan Again
-          </Link>
-          <Link
-            to="/dashboard"
-            className="flex-1 bg-white/10 hover:bg-white/15 text-white py-3 rounded-xl font-medium text-sm transition-colors text-center"
-          >
-            New Scan
-          </Link>
-          <Link
-            to="/history"
-            className="flex-1 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white py-3 rounded-xl font-medium text-sm transition-colors text-center border border-white/10"
-          >
-            View History
-          </Link>
-        </div>
-      )}
 
     </div>
   )
