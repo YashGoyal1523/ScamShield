@@ -34,16 +34,16 @@ const ResultPanel = ({ scan, loading = false }) => {
     <div className="p-6">
 
       {/* ========== VERDICT BANNER ========== */}
-      <div className={`rounded-2xl p-6 mb-6 border ${verdict.bg} ${verdict.border}`}>
-        <div className="flex items-center justify-between gap-4 flex-wrap sm:flex-nowrap">
+      <div className={`rounded-2xl p-4 mb-6 border ${verdict.bg} ${verdict.border}`}>
+        <div className="flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap">
           <div>
-            <p className="text-gray-500 text-xs mb-1 uppercase tracking-wider">
+            <p className="text-gray-500 text-xs mb-0.5 uppercase tracking-wider">
               {scanTypeLabels[scan.type]} Analysis
             </p>
-            <h1 className={`text-3xl font-bold ${verdict.text}`}>
+            <h1 className={`text-2xl font-bold ${verdict.text}`}>
               {verdict.label}
             </h1>
-            <p className="text-gray-400 text-sm mt-1">
+            <p className="text-gray-400 text-xs mt-0.5">
               {new Date(scan.createdAt).toLocaleString()}
             </p>
           </div>
