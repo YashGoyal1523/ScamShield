@@ -22,7 +22,7 @@ const App = () => {
   const { showLogin } = useContext(AppContext)
 
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-[#0f0f0f] text-white">
       <Navbar />
 
       {/* Login modal — conditionally rendered when showLogin is true */}
@@ -46,7 +46,7 @@ const App = () => {
       <Footer />
 
       {/* Global toast notification container — appears bottom-right */}
-      <ToastContainer position="bottom-right" theme="light" />
+      <ToastContainer position="bottom-right" theme="dark" />
     </div>
   )
 }

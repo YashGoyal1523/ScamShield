@@ -94,13 +94,13 @@ const Dashboard = () => {
         {/* 4 skeleton cards for stat cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="bg-gray-50 rounded-xl h-28 animate-pulse" />
+            <div key={i} className="bg-[#1a1a1a] rounded-xl h-28 animate-pulse" />
           ))}
         </div>
         {/* 2 skeleton cards for charts */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-gray-50 rounded-xl h-64 animate-pulse" />
-          <div className="bg-gray-50 rounded-xl h-64 animate-pulse" />
+          <div className="bg-[#1a1a1a] rounded-xl h-64 animate-pulse" />
+          <div className="bg-[#1a1a1a] rounded-xl h-64 animate-pulse" />
         </div>
       </div>
     )
@@ -111,15 +111,15 @@ const Dashboard = () => {
 
       {/* ========== PAGE HEADER ========== */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-600 text-sm mt-1">Your scan overview and analytics</p>
+        <h1 className="text-2xl font-bold text-white">Dashboard</h1>
+        <p className="text-gray-500 text-sm mt-1">Your scan overview and analytics</p>
       </div>
 
       {/* ========== SCAN SHORTCUT BUTTONS ========== */}
       {/* Quick access to start a new scan of each type */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-gray-900 font-medium text-sm">Run a New Scan</h3>
+          <h3 className="text-white font-medium text-sm">Run a New Scan</h3>
         </div>
 
         {/* 6 buttons for each scan type */}
@@ -129,7 +129,7 @@ const Dashboard = () => {
             <Link
               key={type.id}
               to={type.path}
-              className="bg-gray-50 border border-gray-200 hover:border-white/20 rounded-xl p-4 text-center transition-all hover:bg-[#222] group"
+              className="bg-[#1a1a1a] border border-white/10 hover:border-white/20 rounded-xl p-4 text-center transition-all hover:bg-[#222] group"
             >
               {/* Colored icon badge */}
               <div
@@ -140,7 +140,7 @@ const Dashboard = () => {
               </div>
 
               {/* Scan type label */}
-              <p className="text-gray-700 text-xs group-hover:text-gray-900 transition-colors">
+              <p className="text-gray-400 text-xs group-hover:text-white transition-colors">
                 {type.label}  {/* e.g., "Text / Message", "Email" */}
               </p>
             </Link>
@@ -153,26 +153,26 @@ const Dashboard = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
 
         {/* Total scans card */}
-        <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
-          <p className="text-gray-600 text-xs mb-2">Total Scans</p>
-          <p className="text-3xl font-bold text-gray-900">{stats?.stats.total || 0}</p>
+        <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-5">
+          <p className="text-gray-500 text-xs mb-2">Total Scans</p>
+          <p className="text-3xl font-bold text-white">{stats?.stats.total || 0}</p>
         </div>
 
         {/* Scams found card — red theme */}
-        <div className="bg-gray-50 border border-red-500/20 rounded-xl p-5">
-          <p className="text-gray-600 text-xs mb-2">Scams Found</p>
+        <div className="bg-[#1a1a1a] border border-red-500/20 rounded-xl p-5">
+          <p className="text-gray-500 text-xs mb-2">Scams Found</p>
           <p className="text-3xl font-bold text-red-500">{stats?.stats.scams || 0}</p>
         </div>
 
         {/* Suspicious card — orange theme */}
-        <div className="bg-gray-50 border border-orange-500/20 rounded-xl p-5">
-          <p className="text-gray-600 text-xs mb-2">Suspicious</p>
+        <div className="bg-[#1a1a1a] border border-orange-500/20 rounded-xl p-5">
+          <p className="text-gray-500 text-xs mb-2">Suspicious</p>
           <p className="text-3xl font-bold text-orange-500">{stats?.stats.suspicious || 0}</p>
         </div>
 
         {/* Safe card — green theme */}
-        <div className="bg-gray-50 border border-green-500/20 rounded-xl p-5">
-          <p className="text-gray-600 text-xs mb-2">Safe</p>
+        <div className="bg-[#1a1a1a] border border-green-500/20 rounded-xl p-5">
+          <p className="text-gray-500 text-xs mb-2">Safe</p>
           <p className="text-3xl font-bold text-green-500">{stats?.stats.safe || 0}</p>
         </div>
 
@@ -183,8 +183,8 @@ const Dashboard = () => {
 
         {/* ---- WEEKLY ACTIVITY CHART ----
             Bar chart showing scans per day for the last 7 days */}
-        <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
-          <h3 className="text-gray-900 font-medium mb-4 text-sm">Weekly Activity</h3>
+        <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-5">
+          <h3 className="text-white font-medium mb-4 text-sm">Weekly Activity</h3>
 
           {weeklyData.length > 0 ? (
             // Bar chart — ResponsiveContainer makes it responsive to window size
@@ -207,15 +207,15 @@ const Dashboard = () => {
           ) : (
             // Empty state if no scans this week
             <div className="h-48 flex items-center justify-center">
-              <p className="text-gray-600 text-sm">No scans this week</p>
+              <p className="text-gray-500 text-sm">No scans this week</p>
             </div>
           )}
         </div>
 
         {/* ---- VERDICT BREAKDOWN CHART ----
             Donut pie chart showing distribution of SCAM/SUSPICIOUS/SAFE */}
-        <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
-          <h3 className="text-gray-900 font-medium mb-4 text-sm">Verdict Breakdown</h3>
+        <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-5">
+          <h3 className="text-white font-medium mb-4 text-sm">Verdict Breakdown</h3>
 
           {verdictPieData.length > 0 ? (
             <ResponsiveContainer width="100%" height={200}>
@@ -248,7 +248,7 @@ const Dashboard = () => {
           ) : (
             // Empty state if no scans yet
             <div className="h-48 flex items-center justify-center">
-              <p className="text-gray-600 text-sm">No scans yet</p>
+              <p className="text-gray-500 text-sm">No scans yet</p>
             </div>
           )}
         </div>
@@ -258,8 +258,8 @@ const Dashboard = () => {
       {/* ========== SCANS BY TYPE CHART ========== */}
       {/* Horizontal bar chart showing how many scans of each type */}
       {typeData.length > 0 && (
-        <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-8">
-          <h3 className="text-gray-900 font-medium mb-4 text-sm">Scans by Type</h3>
+        <div className="bg-[#1a1a1a] border border-white/10 rounded-xl p-5 mb-8">
+          <h3 className="text-white font-medium mb-4 text-sm">Scans by Type</h3>
           <ResponsiveContainer width="100%" height={180}>
             {/* layout="vertical" makes bars go left-to-right instead of bottom-to-top */}
             <BarChart data={typeData} layout="vertical">
@@ -286,14 +286,14 @@ const Dashboard = () => {
 
           {/* Header with "View all" link to history page */}
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-gray-900 font-medium text-sm">Recent Scans</h3>
+            <h3 className="text-white font-medium text-sm">Recent Scans</h3>
             <Link to="/history" className="text-blue-400 hover:text-blue-300 text-xs transition-colors">
               View all
             </Link>
           </div>
 
           {/* Table-like layout of recent scans */}
-          <div className="bg-gray-50 border border-gray-200 rounded-xl overflow-hidden">
+          <div className="bg-[#1a1a1a] border border-white/10 rounded-xl overflow-hidden">
             {stats.recentScans.map((scan, i) => (
               // Link to detailed result page
               <Link
@@ -305,12 +305,12 @@ const Dashboard = () => {
                 {/* Left side: Type badge + Content preview */}
                 <div className="flex items-center gap-3">
                   {/* Type badge (e.g., "email", "url") */}
-                  <span className="text-xs bg-white/10 text-gray-700 px-2 py-1 rounded-md capitalize">
+                  <span className="text-xs bg-white/10 text-gray-400 px-2 py-1 rounded-md capitalize">
                     {scan.type}
                   </span>
 
                   {/* Content preview — shows first 50 chars, truncated with ... */}
-                  <span className="text-gray-700 text-sm truncate max-w-60">
+                  <span className="text-gray-400 text-sm truncate max-w-60">
                     {scan.content?.slice(0, 50) || 'Image scan'}
                     {scan.content?.length > 50 ? '...' : ''}
                   </span>
@@ -324,7 +324,7 @@ const Dashboard = () => {
                   </span>
 
                   {/* Score out of 100 */}
-                  <span className="text-gray-600 text-xs">{scan.score}/100</span>
+                  <span className="text-gray-500 text-xs">{scan.score}/100</span>
                 </div>
 
               </Link>

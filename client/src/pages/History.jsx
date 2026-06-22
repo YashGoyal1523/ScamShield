@@ -9,7 +9,8 @@ import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { AppContext } from '../context/AppContext.jsx'
-import { verdictConfig, scanTypeLabels } from '../assets/assets.js'
+import { verdictConfig, scanTypeLabels, scanTypes } from '../assets/assets.js'
+import ResultPanel from '../components/ResultPanel.jsx'
 
 // Filter options
 const TYPES = ['all', 'text', 'email', 'job', 'url', 'screenshot', 'document']
@@ -27,6 +28,9 @@ const History = () => {
   const [page, setPage] = useState(1)                 // Current page number
   const [totalPages, setTotalPages] = useState(1)     // Total number of pages
   const [deletingId, setDeletingId] = useState(null)  // ID of scan being deleted (for loading state)
+  const [selectedScanId, setSelectedScanId] = useState(null) // ID of scan in side panel
+  const [selectedScanDetails, setSelectedScanDetails] = useState(null) // Full scan details for panel
+  const [panelLoading, setPanelLoading] = useState(false) // Loading state for panel
 
   const navigate = useNavigate()
 
@@ -58,6 +62,34 @@ const History = () => {
     setLoading(false)
   }
 
+  // ---- OPEN SCAN IN SIDE PANEL ----
+  // Fetches full scan details and opens right panel
+  const handleOpenScan = async (scanId) => {
+    setPanelLoading(true)
+    try {
+      const { data } = await axios.get(
+        backendUrl + `/api/scan/${scanId}`,
+        { headers: { token } }
+      )
+
+      if (data.success) {
+        setSelectedScanId(scanId)
+        setSelectedScanDetails(data.scan)
+      } else {
+        toast.error(data.message)
+      }
+    } catch (e) {
+      toast.error(e.message)
+    }
+    setPanelLoading(false)
+  }
+
+  // ---- CLOSE SIDE PANEL ----
+  const handleClosePanel = () => {
+    setSelectedScanId(null)
+    setSelectedScanDetails(null)
+  }
+
   // ---- DELETE SCAN ----
   // Removes a single scan from history and updates UI immediately
   const handleDelete = async (e, scanId) => {
@@ -75,6 +107,8 @@ const History = () => {
       if (data.success) {
         // Remove from UI immediately without reloading page
         setScans(prev => prev.filter(s => s._id !== scanId))
+        // Close panel if deleted scan is selected
+        if (selectedScanId === scanId) handleClosePanel()
         toast.success('Scan deleted')
       } else {
         toast.error(data.message)
@@ -186,10 +220,10 @@ const History = () => {
               }`}
             >
 
-              {/* Left side: Type badge + Content preview */}
-              <Link
-                to={`/result/${scan._id}`}
-                className="flex items-center gap-4 min-w-0 flex-1 hover:bg-white/5 -mx-5 px-5 py-1 rounded-lg transition-colors"
+              {/* Left side: Type badge + Content preview — clickable to open panel */}
+              <button
+                onClick={() => handleOpenScan(scan._id)}
+                className="flex items-center gap-4 min-w-0 flex-1 hover:bg-white/5 -mx-5 px-5 py-1 rounded-lg transition-colors text-left bg-transparent border-none cursor-pointer"
               >
                 {/* Scan type badge */}
                 <span className="text-xs bg-white/10 text-gray-400 px-2 py-1 rounded-md capitalize shrink-0">
@@ -204,7 +238,7 @@ const History = () => {
                   // Show "Email scan" if no content (image scan)
                   }
                 </p>
-              </Link>
+              </button>
 
               {/* Right side: Verdict + Score + Date + Delete button */}
               <div className="flex items-center gap-3 shrink-0 ml-4">
@@ -268,6 +302,33 @@ const History = () => {
             Next
           </button>
 
+        </div>
+      )}
+
+      {/* ========== CENTRAL PANEL (Result Detail) ========== */}
+      {/* Opens when clicking a scan, centered modal overlay */}
+      {selectedScanId && (
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4 animate-fade-in" onClick={handleClosePanel}>
+          <div
+            className="bg-[#1a1a1a] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-fade-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="sticky top-0 bg-[#1a1a1a]/95 border-b border-white/10 px-6 py-4 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-white">Scan Details</h2>
+              <button
+                onClick={handleClosePanel}
+                className="text-gray-500 hover:text-white text-2xl transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Panel content — using reusable ResultPanel component */}
+            <div className="p-6">
+              <ResultPanel scan={selectedScanDetails} loading={panelLoading} />
+            </div>
+          </div>
         </div>
       )}
 

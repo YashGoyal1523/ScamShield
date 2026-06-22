@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     // border-t adds a top border to separate footer from main content
     // mt-20 gives large margin on top
-    <footer className="border-t border-gray-200 mt-20 px-6 py-8">
+    <footer className="border-t border-white/10 mt-20 px-6 py-8">
 
       {/* max-w-6xl max-width container for alignment with other page content
           flex with md:flex-row makes it horizontal on desktop, vertical on mobile
@@ -26,18 +26,18 @@ const Footer = () => {
           </div>
 
           {/* Brand name */}
-          <span className="text-gray-900 font-semibold">ScamShield</span>
+          <span className="text-white font-semibold">ScamShield</span>
         </Link>
 
         {/* ---- TAGLINE ---- */}
         {/* Short description of the app */}
-        <p className="text-gray-600 text-sm">
+        <p className="text-gray-500 text-sm">
           AI-powered scam and fraud detection. Stay safe online.
         </p>
 
         {/* ---- CREDITS ---- */}
         {/* Attribution to the AI model used */}
-        <p className="text-gray-500 text-xs">
+        <p className="text-gray-600 text-xs">
           Powered by Gemini AI
         </p>
 
