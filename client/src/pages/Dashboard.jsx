@@ -369,27 +369,26 @@ const Dashboard = () => {
       {/* ========== MODAL FOR RECENT SCANS ========== */}
       {selectedScanId && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-fade-in"
-          onClick={handleClosePanel}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-6"
+          onClick={(e) => { if (e.currentTarget === e.target) handleClosePanel() }}
         >
-          <div
-            className="bg-[#1a1a1a] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-fade-in"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="relative bg-[#1a1a1a] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] shadow-2xl">
             {/* Close button at top */}
-            <div className="sticky top-0 flex justify-end p-4 bg-[#1a1a1a]/95 border-b border-white/10">
+            <div className="sticky top-0 flex justify-end p-4 bg-[#1a1a1a]/95 border-b border-white/10 z-10">
               <button
                 onClick={handleClosePanel}
-                className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 text-gray-400 hover:text-white transition-all duration-200 group"
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/15 transition-colors shadow-sm"
               >
-                <svg className="w-4 h-4 group-hover:rotate-90 transition-transform duration-200" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
             </div>
 
-            {/* ResultPanel */}
-            <ResultPanel scan={selectedScanDetails} loading={panelLoading} />
+            {/* Content container */}
+            <div className="overflow-y-auto max-h-[calc(90vh-60px)]">
+              <ResultPanel scan={selectedScanDetails} loading={panelLoading} />
+            </div>
           </div>
         </div>
       )}
