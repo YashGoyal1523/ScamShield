@@ -34,18 +34,6 @@ const ResultPanel = ({ scan, loading = false, onClose = null, isModal = false, c
   return (
     <div className={isModal ? "p-6" : "max-w-3xl mx-auto px-6 py-12 animate-fade-in"}>
 
-      {/* ========== CLOSE BUTTON (Modal only) ========== */}
-      {isModal && onClose && (
-        <div className="flex justify-end mb-4">
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-white text-2xl transition-colors"
-          >
-            ✕
-          </button>
-        </div>
-      )}
-
       {/* ========== VERDICT BANNER ========== */}
       <div className={`rounded-2xl p-6 mb-6 border ${verdict.bg} ${verdict.border}`}>
         <div className="flex items-center justify-between gap-4 flex-wrap sm:flex-nowrap">

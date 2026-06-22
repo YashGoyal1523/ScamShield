@@ -22,26 +22,28 @@ const App = () => {
   const { showLogin } = useContext(AppContext)
 
   return (
-    <div className="min-h-screen bg-[#0f0f0f] text-white">
+    <div className="flex flex-col min-h-screen bg-[#0f0f0f] text-white">
       <Navbar />
 
       {/* Login modal — conditionally rendered when showLogin is true */}
       {showLogin && <Login />}
 
-      {/* All page routes */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/scan/text" element={<ScanText />} />
-        <Route path="/scan/email" element={<ScanEmail />} />
-        <Route path="/scan/job" element={<ScanJob />} />
-        <Route path="/scan/url" element={<ScanUrl />} />
-        <Route path="/scan/screenshot" element={<ScanScreenshot />} />
-        <Route path="/scan/document" element={<ScanDocument />} />
-        <Route path="/result/:id" element={<Result />} />  {/* :id is the MongoDB scan _id */}
-        <Route path="/history" element={<History />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
+      {/* All page routes — flex-1 pushes footer to bottom */}
+      <div className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/scan/text" element={<ScanText />} />
+          <Route path="/scan/email" element={<ScanEmail />} />
+          <Route path="/scan/job" element={<ScanJob />} />
+          <Route path="/scan/url" element={<ScanUrl />} />
+          <Route path="/scan/screenshot" element={<ScanScreenshot />} />
+          <Route path="/scan/document" element={<ScanDocument />} />
+          <Route path="/result/:id" element={<Result />} />  {/* :id is the MongoDB scan _id */}
+          <Route path="/history" element={<History />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </div>
 
       <Footer />
 

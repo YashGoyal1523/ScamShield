@@ -14,6 +14,7 @@ import {
 } from 'recharts' // Recharts library for data visualization
 import { AppContext } from '../context/AppContext.jsx'
 import { scanTypes, verdictConfig, scanTypeLabels } from '../assets/assets.js'
+import ResultPanel from '../components/ResultPanel.jsx'
 
 const Dashboard = () => {
   // Get auth token and backend URL from global context
@@ -23,7 +24,38 @@ const Dashboard = () => {
   const [stats, setStats] = useState(null)
   const [loading, setLoading] = useState(true)
 
+  // State for modal
+  const [selectedScanId, setSelectedScanId] = useState(null)
+  const [selectedScanDetails, setSelectedScanDetails] = useState(null)
+  const [panelLoading, setPanelLoading] = useState(false)
+
   const navigate = useNavigate()
+
+  // ---- OPEN SCAN IN MODAL ----
+  const handleOpenScan = async (scanId) => {
+    setPanelLoading(true)
+    try {
+      const { data } = await axios.get(
+        backendUrl + `/api/scan/${scanId}`,
+        { headers: { token } }
+      )
+      if (data.success) {
+        setSelectedScanId(scanId)
+        setSelectedScanDetails(data.scan)
+      } else {
+        toast.error(data.message)
+      }
+    } catch (e) {
+      toast.error(e.message)
+    }
+    setPanelLoading(false)
+  }
+
+  // ---- CLOSE MODAL ----
+  const handleClosePanel = () => {
+    setSelectedScanId(null)
+    setSelectedScanDetails(null)
+  }
 
   // ---- LOAD DASHBOARD STATS ----
   // Fetches all analytics data from /api/scan/stats
@@ -295,11 +327,11 @@ const Dashboard = () => {
           {/* Table-like layout of recent scans */}
           <div className="bg-[#1a1a1a] border border-white/10 rounded-xl overflow-hidden">
             {stats.recentScans.map((scan, i) => (
-              // Link to detailed result page
-              <Link
+              // Button to open modal
+              <button
                 key={scan._id}
-                to={`/result/${scan._id}`}
-                className={`flex items-center justify-between px-5 py-4 hover:bg-white/5 transition-colors ${i < stats.recentScans.length - 1 ? 'border-b border-white/5' : ''}`}
+                onClick={() => handleOpenScan(scan._id)}
+                className={`w-full flex items-center justify-between px-5 py-4 hover:bg-white/5 transition-colors text-left bg-transparent border-none cursor-pointer ${i < stats.recentScans.length - 1 ? 'border-b border-white/5' : ''}`}
               >
 
                 {/* Left side: Type badge + Content preview */}
@@ -327,10 +359,41 @@ const Dashboard = () => {
                   <span className="text-gray-500 text-xs">{scan.score}/100</span>
                 </div>
 
-              </Link>
+              </button>
             ))}
           </div>
 
+        </div>
+      )}
+
+      {/* ========== MODAL FOR RECENT SCANS ========== */}
+      {selectedScanId && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-fade-in"
+          onClick={handleClosePanel}
+        >
+          <div
+            className="bg-[#1a1a1a] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-fade-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button at top */}
+            <div className="sticky top-0 flex justify-end p-4 bg-[#1a1a1a]/95 border-b border-white/10">
+              <button
+                onClick={handleClosePanel}
+                className="text-gray-500 hover:text-white text-2xl transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* ResultPanel with isModal={true} */}
+            <ResultPanel
+              scan={selectedScanDetails}
+              loading={panelLoading}
+              isModal={true}
+              onClose={handleClosePanel}
+            />
+          </div>
         </div>
       )}
 

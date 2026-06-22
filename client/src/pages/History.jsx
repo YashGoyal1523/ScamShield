@@ -62,8 +62,8 @@ const History = () => {
     setLoading(false)
   }
 
-  // ---- OPEN SCAN IN SIDE PANEL ----
-  // Fetches full scan details and opens right panel
+  // ---- OPEN SCAN IN PANEL ----
+  // Fetches full scan details and opens panel
   const handleOpenScan = async (scanId) => {
     setPanelLoading(true)
     try {
@@ -84,7 +84,7 @@ const History = () => {
     setPanelLoading(false)
   }
 
-  // ---- CLOSE SIDE PANEL ----
+  // ---- CLOSE PANEL ----
   const handleClosePanel = () => {
     setSelectedScanId(null)
     setSelectedScanDetails(null)
