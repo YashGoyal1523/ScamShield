@@ -194,7 +194,7 @@ const Profile = () => {
         </button>
       ) : (
         // Confirmation dialog — appears after clicking Delete Account
-        <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-5 animate-fade-in">
+        <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-5">
 
           {/* Warning heading */}
           <p className="text-white text-sm font-medium mb-1">Are you sure?</p>

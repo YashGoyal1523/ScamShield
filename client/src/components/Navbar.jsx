@@ -108,7 +108,7 @@ const Navbar = () => {
 
             {/* Dropdown menu — only rendered if dropdownOpen is true */}
             {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-44 bg-[#1a1a1a] border border-white/10 rounded-xl shadow-xl animate-fade-in">
+              <div className="absolute right-0 mt-2 w-44 bg-[#1a1a1a] border border-white/10 rounded-xl shadow-xl">
 
                 {/* Profile link */}
                 <Link

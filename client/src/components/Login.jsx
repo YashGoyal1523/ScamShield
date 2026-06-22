@@ -112,7 +112,7 @@ const Login = () => {
           onClick={(e) => e.stopPropagation() prevents closing when clicking inside the modal
           Only the outer overlay should close on click */}
       <div
-        className="bg-[#1a1a1a] border border-white/10 rounded-2xl p-8 w-full max-w-md mx-4 animate-fade-in"
+        className="bg-[#1a1a1a] border border-white/10 rounded-2xl p-8 w-full max-w-md mx-4"
         onClick={(e) => e.stopPropagation()}
       >
 

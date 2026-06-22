@@ -5,7 +5,7 @@
 // isModal={false} → shows buttons at bottom
 // ============================================================
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ScamMeter from './ScamMeter.jsx'
 import { verdictConfig, scanTypeLabels } from '../assets/assets.js'
 
