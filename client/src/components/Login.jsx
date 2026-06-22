@@ -4,6 +4,7 @@
 // ============================================================
 
 import { useContext, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { AppContext } from '../context/AppContext.jsx'
@@ -11,6 +12,9 @@ import { AppContext } from '../context/AppContext.jsx'
 const Login = () => {
   // Get initial auth mode from context (set by Navbar: 'Login' or 'Register')
   const { setUser, setShowLogin, setToken, initialAuthMode, backendUrl } = useContext(AppContext)
+
+  // Navigate to dashboard after successful login/register
+  const navigate = useNavigate()
 
   // Toggle between 'Login' and 'Register' modes — starts with initialAuthMode from context
   const [state, setState] = useState(initialAuthMode)
@@ -56,8 +60,8 @@ const Login = () => {
           // Close the login modal
           setShowLogin(false)
 
-          // Scroll to top smoothly — better UX on mobile
-          window.scrollTo({ top: 0, behavior: 'smooth' })
+          // Navigate to dashboard
+          navigate('/dashboard')
 
           // Show success toast notification
           toast.success(data.message)
@@ -71,12 +75,12 @@ const Login = () => {
         const { data } = await axios.post(backendUrl + '/api/user/register', { name, email, password })
 
         if (data.success) {
-          // Same flow as login — save token, update state, close modal, show success
+          // Same flow as login — save token, update state, close modal, navigate to dashboard
           localStorage.setItem('token', data.token)
           setToken(data.token)
           setUser(data.user)
           setShowLogin(false)
-          window.scrollTo({ top: 0, behavior: 'smooth' })
+          navigate('/dashboard')
           toast.success(data.message)
         } else {
           toast.error(data.message)
