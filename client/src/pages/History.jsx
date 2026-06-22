@@ -305,17 +305,18 @@ const History = () => {
         </div>
       )}
 
-      {/* ========== CENTRAL PANEL (Result Detail) ========== */}
-      {/* Opens when clicking a scan, centered modal overlay */}
+      {/* ========== CENTRAL PANEL (Modal) ========== */}
       {selectedScanId && (
-        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4 animate-fade-in" onClick={handleClosePanel}>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-fade-in"
+          onClick={handleClosePanel}
+        >
           <div
             className="bg-[#1a1a1a] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-fade-in"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header */}
-            <div className="sticky top-0 bg-[#1a1a1a]/95 border-b border-white/10 px-6 py-4 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-white">Scan Details</h2>
+            {/* Close button at top */}
+            <div className="sticky top-0 flex justify-end p-4 bg-[#1a1a1a]/95 border-b border-white/10">
               <button
                 onClick={handleClosePanel}
                 className="text-gray-500 hover:text-white text-2xl transition-colors"
@@ -324,10 +325,13 @@ const History = () => {
               </button>
             </div>
 
-            {/* Panel content — using reusable ResultPanel component */}
-            <div className="p-6">
-              <ResultPanel scan={selectedScanDetails} loading={panelLoading} />
-            </div>
+            {/* ResultPanel with isModal={true} */}
+            <ResultPanel
+              scan={selectedScanDetails}
+              loading={panelLoading}
+              isModal={true}
+              onClose={handleClosePanel}
+            />
           </div>
         </div>
       )}
