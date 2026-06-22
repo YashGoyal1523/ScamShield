@@ -112,7 +112,7 @@ const Login = () => {
           onClick={(e) => e.stopPropagation() prevents closing when clicking inside the modal
           Only the outer overlay should close on click */}
       <div
-        className="bg-[#1a1a1a] border border-white/10 rounded-2xl p-8 w-full max-w-md mx-4 animate-fade-in"
+        className="bg-white border border-gray-200 rounded-2xl p-8 w-full max-w-md mx-4 animate-fade-in"
         onClick={(e) => e.stopPropagation()}
       >
 
@@ -121,12 +121,12 @@ const Login = () => {
         <div className="flex items-center justify-between mb-6">
           <div>
             {/* Title changes based on Login vs Register mode */}
-            <h2 className="text-white text-2xl font-bold">
+            <h2 className="text-gray-900 text-2xl font-bold">
               {state === 'Login' ? 'Welcome back' : 'Create account'}
             </h2>
 
             {/* Subtitle changes based on mode */}
-            <p className="text-gray-500 text-sm mt-1">
+            <p className="text-gray-600 text-sm mt-1">
               {state === 'Login' ? 'Sign in to your ScamShield account' : 'Start detecting scams for free'}
             </p>
           </div>
@@ -134,7 +134,7 @@ const Login = () => {
           {/* Close button (X) — closes modal */}
           <button
             onClick={() => setShowLogin(false)}
-            className="text-gray-500 hover:text-white text-xl transition-colors"
+            className="text-gray-400 hover:text-gray-600 text-xl transition-colors"
           >
             ✕
           </button>
@@ -156,7 +156,7 @@ const Login = () => {
               // onChange updates the name state as user types
               required
               // HTML5 validation — form won't submit if empty
-              className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+              className="bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 transition-colors"
             />
           )}
 
@@ -208,12 +208,12 @@ const Login = () => {
 
         {/* ---- TOGGLE LOGIN/REGISTER ----
             Text link to switch between modes */}
-        <p className="text-gray-500 text-sm text-center mt-5">
+        <p className="text-gray-600 text-sm text-center mt-5">
           {state === 'Login' ? "Don't have an account? " : 'Already have an account? '}
           {/* Clickable link to toggle between modes */}
           <span
             onClick={() => setState(state === 'Login' ? 'Register' : 'Login')}
-            className="text-blue-400 hover:text-blue-300 cursor-pointer transition-colors"
+            className="text-blue-600 hover:text-blue-700 cursor-pointer transition-colors"
           >
             {state === 'Login' ? 'Sign Up' : 'Sign In'}
           </span>

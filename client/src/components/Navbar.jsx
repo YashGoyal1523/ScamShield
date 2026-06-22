@@ -42,9 +42,9 @@ const Navbar = () => {
   return (
     // sticky top-0 keeps navbar at top while scrolling
     // z-40 ensures navbar stays above other content
-    // bg-[#0f0f0f]/90 is dark background with 90% opacity
+    // bg-white is light background for professional look
     // backdrop-blur-sm adds a frosted glass blur effect
-    <nav className="flex items-center justify-between px-6 py-4 border-b border-white/10 sticky top-0 z-40 bg-[#0f0f0f]/90 backdrop-blur-sm">
+    <nav className="flex items-center justify-between px-6 py-4 border-b border-gray-200 sticky top-0 z-40 bg-white/95 backdrop-blur-sm">
 
       {/* Logo and brand name — links to home page */}
       <Link to="/" className="flex items-center gap-3">
@@ -65,8 +65,8 @@ const Navbar = () => {
 
         {/* Brand text */}
         <div>
-          <span className="text-white font-bold text-xl">ScamShield</span>
-          <p className="text-gray-500 text-xs leading-none mt-0.5">AI Scam Detection</p>
+          <span className="text-gray-900 font-bold text-xl">ScamShield</span>
+          <p className="text-gray-600 text-xs leading-none mt-0.5">AI Scam Detection</p>
         </div>
       </Link>
 
@@ -77,12 +77,12 @@ const Navbar = () => {
         <div className="flex items-center gap-6">
 
           {/* Dashboard link */}
-          <Link to="/dashboard" className="text-gray-400 hover:text-white text-sm transition-colors">
+          <Link to="/dashboard" className="text-gray-600 hover:text-gray-900 text-sm transition-colors">
             Dashboard
           </Link>
 
           {/* History link */}
-          <Link to="/history" className="text-gray-400 hover:text-white text-sm transition-colors">
+          <Link to="/history" className="text-gray-600 hover:text-gray-900 text-sm transition-colors">
             History
           </Link>
 
@@ -93,7 +93,7 @@ const Navbar = () => {
             {/* Dropdown toggle button — shows user's first initial and name */}
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="flex items-center gap-2 bg-white/10 hover:bg-white/15 px-3 py-2 rounded-lg transition-colors"
+              className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-lg transition-colors"
             >
               {/* Avatar circle with user's first initial */}
               <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
@@ -103,18 +103,18 @@ const Navbar = () => {
                 </span>
               </div>
               {/* User's first name */}
-              <span className="text-white text-sm">{user?.name || 'User'}</span>
+              <span className="text-gray-900 text-sm">{user?.name || 'User'}</span>
             </button>
 
             {/* Dropdown menu — only rendered if dropdownOpen is true */}
             {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-44 bg-[#1a1a1a] border border-white/10 rounded-xl shadow-xl animate-fade-in">
+              <div className="absolute right-0 mt-2 w-44 bg-white border border-gray-200 rounded-xl shadow-xl animate-fade-in">
 
                 {/* Profile link */}
                 <Link
                   to="/profile"
                   onClick={() => setDropdownOpen(false)} // Close dropdown after navigation
-                  className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-t-xl transition-colors"
+                  className="block px-4 py-3 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-t-xl transition-colors"
                 >
                   Profile
                 </Link>
@@ -122,7 +122,7 @@ const Navbar = () => {
                 {/* Logout button */}
                 <button
                   onClick={() => { logout(); setDropdownOpen(false) }} // Call logout AND close dropdown
-                  className="block w-full text-left px-4 py-3 text-sm text-red-400 hover:text-red-300 hover:bg-white/5 rounded-b-xl transition-colors"
+                  className="block w-full text-left px-4 py-3 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-b-xl transition-colors"
                 >
                   Logout
                 </button>
@@ -141,7 +141,7 @@ const Navbar = () => {
               setInitialAuthMode('Login')
               setShowLogin(true)
             }}
-            className="text-gray-400 hover:text-white text-sm transition-colors"
+            className="text-gray-600 hover:text-gray-900 text-sm transition-colors"
           >
             Login
           </button>
