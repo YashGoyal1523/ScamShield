@@ -119,6 +119,22 @@ const History = () => {
     setDeletingId(null) // Clear loading state
   }
 
+  // ---- PREVENT BODY SCROLL WHEN MODAL IS OPEN ----
+  useEffect(() => {
+    if (selectedScanId) {
+      // Disable scroll on body when modal opens
+      document.body.style.overflow = 'hidden'
+    } else {
+      // Re-enable scroll on body when modal closes
+      document.body.style.overflow = 'unset'
+    }
+
+    // Cleanup when component unmounts
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [selectedScanId])
+
   // ---- INITIAL LOAD + FILTER CHANGES ----
   // Re-fetch whenever filters or page changes
   useEffect(() => {
@@ -311,21 +327,19 @@ const History = () => {
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-6"
           onClick={(e) => { if (e.currentTarget === e.target) handleClosePanel() }}
         >
-          <div className="relative bg-[#1a1a1a] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] shadow-2xl">
-            {/* Close button at top */}
-            <div className="sticky top-0 flex justify-end p-4 bg-[#1a1a1a]/95 border-b border-white/10 z-10">
-              <button
-                onClick={handleClosePanel}
-                className="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/15 transition-colors shadow-sm"
-              >
-                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-            </div>
+          <div className="relative bg-[#1a1a1a] border border-white/10 rounded-2xl w-full max-w-2xl shadow-2xl">
+            {/* Close button - Absolute positioned */}
+            <button
+              onClick={handleClosePanel}
+              className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 border border-white/20 text-gray-400 hover:text-white hover:bg-white/20 transition-colors shadow-sm"
+            >
+              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
 
             {/* Content container */}
-            <div className="overflow-y-auto max-h-[calc(90vh-60px)]">
+            <div className="overflow-y-auto max-h-[90vh] rounded-2xl">
               <ResultPanel scan={selectedScanDetails} loading={panelLoading} />
             </div>
           </div>
