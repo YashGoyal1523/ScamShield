@@ -13,9 +13,8 @@ const connectDB = async () => {
   })
 
   // Connect to MongoDB using the URI from .env
-  // The '/scamshield' at the end specifies the database name within the cluster
-  // MongoDB creates this database automatically if it doesn't exist
-  await mongoose.connect(`${process.env.MONGODB_URI}/scamshield`)
+
+  await mongoose.connect(process.env.MONGODB_URI)
 }
 
 export default connectDB // Export so server.js can call it on startup
