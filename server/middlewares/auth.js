@@ -1,5 +1,5 @@
 // ============================================================
-// auth.js — JWT Authentication Middleware
+// auth.js - JWT Authentication Middleware
 // Runs before any protected route handler to verify the user is logged in
 // If token is valid, attaches userId to req so controllers can use it
 // ============================================================
@@ -14,7 +14,7 @@ const userAuth = async (req, res, next) => {
   // If no token is provided, reject immediately with 401 Unauthorized
   if (!token) {
     return res.status(401).json({ success: false, message: 'Not Authorized, Login again' })
-    // 'return' is important here — stops execution and prevents calling next()
+    // 'return' is important here - stops execution and prevents calling next()
   }
 
   try {
@@ -27,11 +27,11 @@ const userAuth = async (req, res, next) => {
       // can access req.userId without needing the token again
       req.userId = tokenDecode.id
     } else {
-      // Token is valid but doesn't contain an id — shouldn't happen but handle gracefully
+      // Token is valid but doesn't contain an id - shouldn't happen but handle gracefully
       return res.status(401).json({ success: false, message: 'Not Authorized, Login again' })
     }
 
-    // Token is valid — pass control to the next function (the actual route handler)
+    // Token is valid - pass control to the next function (the actual route handler)
     next()
 
   } catch (e) {

@@ -1,5 +1,5 @@
 // ============================================================
-// Navbar.jsx — Top navigation bar shown on every page
+// Navbar.jsx - Top navigation bar shown on every page
 // Displays logo, nav links, and user profile dropdown (if logged in)
 // ============================================================
 
@@ -11,10 +11,10 @@ const Navbar = () => {
   // Get auth state and functions from global context
   const { user, token, setShowLogin, setInitialAuthMode, logout } = useContext(AppContext)
 
-  // Control dropdown visibility — true = dropdown is open, false = closed
+  // Control dropdown visibility - true = dropdown is open, false = closed
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
-  // Ref to the dropdown div — used to detect clicks outside it
+  // Ref to the dropdown div - used to detect clicks outside it
   const dropdownRef = useRef()
 
   // ---- Close dropdown when clicking outside ----
@@ -46,7 +46,7 @@ const Navbar = () => {
     // backdrop-blur-sm adds a frosted glass blur effect
     <nav className="flex items-center justify-between px-6 py-4 border-b border-white/10 sticky top-0 z-40 bg-[#0f0f0f]/90 backdrop-blur-sm">
 
-      {/* Logo and brand name — links to home page */}
+      {/* Logo and brand name - links to home page */}
       <Link to="/" className="flex items-center gap-3">
         {/* SVG shield icon with gradient fill */}
         <svg width="36" height="36" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
@@ -73,7 +73,7 @@ const Navbar = () => {
       {/* ---- RIGHT SIDE: Conditional rendering based on login state ---- */}
 
       {token ? (
-        // USER IS LOGGED IN — show Dashboard, History, and Profile dropdown
+        // USER IS LOGGED IN - show Dashboard, History, and Profile dropdown
         <div className="flex items-center gap-6">
 
           {/* Dashboard link */}
@@ -90,7 +90,7 @@ const Navbar = () => {
           {/* ref={dropdownRef} connects this div to the useEffect above for outside-click detection */}
           <div className="relative" ref={dropdownRef}>
 
-            {/* Dropdown toggle button — shows user's first initial and name */}
+            {/* Dropdown toggle button - shows user's first initial and name */}
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="flex items-center gap-2 bg-white/10 hover:bg-white/15 px-3 py-2 rounded-lg transition-colors"
@@ -106,7 +106,7 @@ const Navbar = () => {
               <span className="text-white text-sm">{user?.name || 'User'}</span>
             </button>
 
-            {/* Dropdown menu — only rendered if dropdownOpen is true */}
+            {/* Dropdown menu - only rendered if dropdownOpen is true */}
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-44 bg-[#1a1a1a] border border-white/10 rounded-xl shadow-xl">
 
@@ -132,10 +132,10 @@ const Navbar = () => {
           </div>
         </div>
       ) : (
-        // USER IS NOT LOGGED IN — show Login and Get Started buttons
+        // USER IS NOT LOGGED IN - show Login and Get Started buttons
         <div className="flex items-center gap-3">
 
-          {/* Login link — opens login modal in Login mode */}
+          {/* Login link - opens login modal in Login mode */}
           <button
             onClick={() => {
               setInitialAuthMode('Login')
@@ -146,7 +146,7 @@ const Navbar = () => {
             Login
           </button>
 
-          {/* Get Started button — opens login modal in Register mode */}
+          {/* Get Started button - opens login modal in Register mode */}
           <button
             onClick={() => {
               setInitialAuthMode('Register')

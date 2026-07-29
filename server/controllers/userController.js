@@ -1,21 +1,21 @@
 // ============================================================
-// userController.js — Handles user account operations
+// userController.js - Handles user account operations
 // Register, Login, Get Profile, Delete Account
 // ============================================================
 
 import bcrypt from 'bcrypt'         // Library for hashing and comparing passwords securely
 import jwt from 'jsonwebtoken'      // Library for creating and verifying JWT tokens
 import userModel from '../models/userModel.js'   // MongoDB user model
-import scanModel from '../models/scanModel.js'   // MongoDB scan model — needed for deleteAccount
+import scanModel from '../models/scanModel.js'   // MongoDB scan model - needed for deleteAccount
 
 // ----------------------------------------------------------------
-// REGISTER — Creates a new user account
+// REGISTER - Creates a new user account
 // POST /api/user/register
 // ----------------------------------------------------------------
 const registerUser = async (req, res) => {
 
-  // .trim() removes leading/trailing whitespace — prevents " john " being saved
-  // .toLowerCase() ensures emails are case-insensitive — "John@gmail.com" = "john@gmail.com"
+  // .trim() removes leading/trailing whitespace - prevents " john " being saved
+  // .toLowerCase() ensures emails are case-insensitive - "John@gmail.com" = "john@gmail.com"
   const name = req.body.name?.trim()
   const email = req.body.email?.trim().toLowerCase()
   const password = req.body.password
@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
   // Validate all required fields before doing any database work
   if (!name || !email || !password) {
     return res.status(400).json({ success: false, message: 'All fields are required' })
-    // 400 = Bad Request — client sent incomplete data
+    // 400 = Bad Request - client sent incomplete data
   }
 
   // Enforce minimum password length before hashing
@@ -37,11 +37,11 @@ const registerUser = async (req, res) => {
     const existingUser = await userModel.findOne({ email })
     if (existingUser) {
       return res.status(409).json({ success: false, message: 'Email already registered' })
-      // 409 = Conflict — resource already exists
+      // 409 = Conflict - resource already exists
     }
 
     // Hash the password using bcrypt before storing
-    // genSalt(10) creates a random salt with 10 "rounds" — higher = more secure but slower
+    // genSalt(10) creates a random salt with 10 "rounds" - higher = more secure but slower
     // 10 rounds is the industry standard balance between security and performance
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
@@ -54,7 +54,7 @@ const registerUser = async (req, res) => {
 
     // Create a JWT token containing the user's MongoDB _id
     // This token is sent to frontend and stored in localStorage
-    // expiresIn: '7d' means token becomes invalid after 7 days — user must re-login
+    // expiresIn: '7d' means token becomes invalid after 7 days - user must re-login
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '7d' })
 
     // Return full user data (name, email, createdAt) so frontend has everything immediately
@@ -65,17 +65,17 @@ const registerUser = async (req, res) => {
       token,  // JWT token for future authenticated requests
       user: { name: newUser.name, email: newUser.email, createdAt: newUser.createdAt }
     })
-    // 201 = Created — resource was successfully created
+    // 201 = Created - resource was successfully created
 
   } catch (e) {
     console.error('registerUser error:', e.message)
     res.status(500).json({ success: false, message: e.message })
-    // 500 = Internal Server Error — something unexpected went wrong
+    // 500 = Internal Server Error - something unexpected went wrong
   }
 }
 
 // ----------------------------------------------------------------
-// LOGIN — Authenticates an existing user
+// LOGIN - Authenticates an existing user
 // POST /api/user/login
 // ----------------------------------------------------------------
 const loginUser = async (req, res) => {
@@ -93,9 +93,9 @@ const loginUser = async (req, res) => {
 
     if (!user) {
       // Deliberately use same error message for wrong email and wrong password
-      // This prevents "email enumeration attacks" — hackers can't figure out if email exists
+      // This prevents "email enumeration attacks" - hackers can't figure out if email exists
       return res.status(401).json({ success: false, message: 'Invalid email or password' })
-      // 401 = Unauthorized — credentials are invalid
+      // 401 = Unauthorized - credentials are invalid
     }
 
     // Compare entered password with the stored bcrypt hash
@@ -106,7 +106,7 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Invalid email or password' })
     }
 
-    // Credentials valid — generate a new JWT token
+    // Credentials valid - generate a new JWT token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' })
 
     res.status(200).json({
@@ -123,7 +123,7 @@ const loginUser = async (req, res) => {
 }
 
 // ----------------------------------------------------------------
-// GET PROFILE — Returns logged-in user's profile data
+// GET PROFILE - Returns logged-in user's profile data
 // GET /api/user/profile
 // Called on page load to restore user state from token
 // ----------------------------------------------------------------
@@ -149,7 +149,7 @@ const getUserProfile = async (req, res) => {
 }
 
 // ----------------------------------------------------------------
-// DELETE ACCOUNT — Permanently removes user and all their scans
+// DELETE ACCOUNT - Permanently removes user and all their scans
 // DELETE /api/user/delete
 // ----------------------------------------------------------------
 const deleteAccount = async (req, res) => {

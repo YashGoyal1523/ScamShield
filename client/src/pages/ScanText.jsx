@@ -1,5 +1,5 @@
 // ============================================================
-// ScanText.jsx — Scan page for text messages (SMS, WhatsApp)
+// ScanText.jsx - Scan page for text messages (SMS, WhatsApp)
 // User pastes text → backend analyzes with Gemini → shows result
 // ============================================================
 
@@ -12,7 +12,7 @@ const ScanText = () => {
   // Get the submit function and loading state from global context
   const { submitTextScan, scanLoading } = useContext(AppContext)
 
-  // Textarea controlled component — React manages the text value
+  // Textarea controlled component - React manages the text value
   const [content, setContent] = useState('')
 
   // useNavigate hook to programmatically navigate (e.g., back button)
@@ -70,7 +70,7 @@ const ScanText = () => {
         <div className="bg-[#1a1a1a] border border-white/10 rounded-2xl p-1 mb-4">
 
           {/* ---- TEXTAREA ---- */}
-          {/* Controlled input — value and onChange tie to React state */}
+          {/* Controlled input - value and onChange tie to React state */}
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
@@ -88,7 +88,7 @@ const ScanText = () => {
               {content.length} characters
             </span>
 
-            {/* "Try an example" button — pre-fills textarea with a sample scam message */}
+            {/* "Try an example" button - pre-fills textarea with a sample scam message */}
             <button
               type="button"
               // onClick doesn't trigger form submission (type="button" prevents that)
@@ -128,7 +128,7 @@ const ScanText = () => {
       <div className="mt-6 bg-white/5 rounded-xl p-4">
         <p className="text-gray-500 text-xs leading-relaxed">
           <span className="text-gray-400 font-medium">Tip: </span>
-          Include the full message as received — the more context, the more accurate the analysis.
+          Include the full message as received - the more context, the more accurate the analysis.
         </p>
       </div>
 

@@ -1,5 +1,5 @@
 // ============================================================
-// ScanDocument.jsx — Scan page for document image uploads
+// ScanDocument.jsx - Scan page for document image uploads
 // Detects forged offer letters, invoices, certificates, contracts
 // Accepts multiple pages that are analyzed together by Gemini Vision
 // ============================================================
@@ -18,11 +18,11 @@ const ScanDocument = () => {
   // ---- FILE MANAGEMENT STATE ----
   const [files, setFiles] = useState([])         // Array of File objects (document pages)
   const [previews, setPreviews] = useState([])   // Array of blob URLs for page previews
-  // Files and previews stay in sync by index — user sees them as "pages"
+  // Files and previews stay in sync by index - user sees them as "pages"
 
   const [dragging, setDragging] = useState(false) // true when dragging files over drop zone
 
-  // Reference to hidden file input — used to trigger file picker when user clicks drop zone
+  // Reference to hidden file input - used to trigger file picker when user clicks drop zone
   const inputRef = useRef()
 
   // ---- HANDLE FILES ----
@@ -138,10 +138,10 @@ const ScanDocument = () => {
 
           {/* Instructions */}
           <p className="text-white font-medium mb-1">Upload document images</p>
-          <p className="text-gray-500 text-sm mb-2">or click to browse — select multiple pages</p>
-          <p className="text-gray-600 text-xs">JPG, PNG, WEBP — max 5MB each — up to 5 images</p>
+          <p className="text-gray-500 text-sm mb-2">or click to browse - select multiple pages</p>
+          <p className="text-gray-600 text-xs">JPG, PNG, WEBP - max 5MB each - up to 5 images</p>
 
-          {/* Hidden file input — triggered by click or onChange via dropzone */}
+          {/* Hidden file input - triggered by click or onChange via dropzone */}
           <input
             ref={inputRef}
             type="file"
@@ -168,7 +168,7 @@ const ScanDocument = () => {
                   className="w-full h-32 object-cover"  // object-cover crops image to fit thumbnail
                 />
 
-                {/* Remove button — red X in top right corner */}
+                {/* Remove button - red X in top right corner */}
                 <button
                   type="button"
                   onClick={() => removeFile(i)}
@@ -192,7 +192,7 @@ const ScanDocument = () => {
             Only shown if at least one page is selected */}
         {previews.length > 0 && (
           <p className="text-gray-500 text-xs mb-4 text-center">
-            {previews.length} page{previews.length > 1 ? 's' : ''} selected — Gemini will analyze all together
+            {previews.length} page{previews.length > 1 ? 's' : ''} selected - Gemini will analyze all together
             {/* Plural "s" only if more than 1 page */}
           </p>
         )}

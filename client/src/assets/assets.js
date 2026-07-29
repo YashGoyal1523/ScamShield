@@ -1,7 +1,7 @@
-// Central data store — all static data used across multiple components lives here
+// Central data store - all static data used across multiple components lives here
 // Changing a value here updates it everywhere it's used automatically
 
-// Array of all 6 scan types — used in Home page cards and Dashboard scan shortcuts
+// Array of all 6 scan types - used in Home page cards and Dashboard scan shortcuts
 export const scanTypes = [
   {
     id: 'text',
@@ -110,7 +110,7 @@ export const platformStats = [
   { value: '100%', label: 'Free to Use' }
 ]
 
-// Maps each verdict to its Tailwind color classes — used consistently across Result, History, Dashboard
+// Maps each verdict to its Tailwind color classes - used consistently across Result, History, Dashboard
 export const verdictConfig = {
   SCAM: {
     label: 'SCAM DETECTED',
@@ -135,7 +135,7 @@ export const verdictConfig = {
   }
 }
 
-// Maps scan type IDs to human-readable labels — used in Result page, History list, Dashboard
+// Maps scan type IDs to human-readable labels - used in Result page, History list, Dashboard
 export const scanTypeLabels = {
   text: 'Text / Message',
   email: 'Email',

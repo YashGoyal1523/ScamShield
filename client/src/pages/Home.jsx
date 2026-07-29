@@ -1,5 +1,5 @@
 // ============================================================
-// Home.jsx — Landing page for all users (authenticated + unauthenticated)
+// Home.jsx - Landing page for all users (authenticated + unauthenticated)
 // Shows hero section, 6 scan types, how it works, platform stats, and CTAs
 // If user clicks buttons without token, shows login modal
 // ============================================================
@@ -61,7 +61,7 @@ const Home = () => {
 
         {/* Subheading explaining what the app does */}
         <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-          ScamShield uses AI to analyze messages, emails, job posts, links, screenshots, and documents — and tells you exactly what's suspicious.
+          ScamShield uses AI to analyze messages, emails, job posts, links, screenshots, and documents - and tells you exactly what's suspicious.
         </p>
 
         {/* CTA buttons */}
@@ -75,7 +75,7 @@ const Home = () => {
             Start Scanning Free
           </button>
 
-          {/* Secondary button: How it works — scrolls to the "How it works" section below */}
+          {/* Secondary button: How it works - scrolls to the "How it works" section below */}
           <button
             onClick={() => document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' })}
             className="bg-white/5 hover:bg-white/10 text-white px-8 py-3.5 rounded-xl font-medium text-base transition-colors border border-white/10 w-full sm:w-auto"
@@ -106,7 +106,7 @@ const Home = () => {
         {/* Section header */}
         <div className="text-center mb-10">
           <h2 className="text-3xl font-bold text-white mb-3">6 Types of Scam Detection</h2>
-          <p className="text-gray-500">Every format covered — text, image, or link</p>
+          <p className="text-gray-500">Every format covered - text, image, or link</p>
         </div>
 
         {/* Grid of scan type cards */}
@@ -117,7 +117,7 @@ const Home = () => {
               onClick={() => handleScanClick(type.path)}
               className="bg-[#1a1a1a] border border-white/10 rounded-xl p-6 cursor-pointer hover:bg-[#222] hover:border-white/20 transition-all group"
             >
-              {/* Colored icon badge — color from assets.js */}
+              {/* Colored icon badge - color from assets.js */}
               <div
                 className="w-10 h-10 rounded-lg flex items-center justify-center text-xs font-bold mb-4"
                 style={{

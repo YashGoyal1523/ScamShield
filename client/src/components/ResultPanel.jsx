@@ -1,5 +1,5 @@
 // ============================================================
-// ResultPanel.jsx — Displays scan analysis results
+// ResultPanel.jsx - Displays scan analysis results
 // Used in both Result page and History modal
 // isModal={true} → hides buttons, shows close at top
 // isModal={false} → shows buttons at bottom

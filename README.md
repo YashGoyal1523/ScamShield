@@ -34,25 +34,25 @@ An intelligent web application that analyzes messages, emails, job postings, URL
 
 ### 🔍 6 Types of Scam Detection
 
-1. **Text/Message Analysis** — WhatsApp, SMS, and plain text messages
-2. **Email Analysis** — Phishing detection, spoofed senders, malicious links
-3. **Job Posting Analysis** — Fake recruitment scams, unrealistic offers
-4. **URL/Link Analysis** — Dual-source with Gemini AI + VirusTotal (90+ security engines)
-5. **Screenshot Analysis** — Gemini Vision analyzes suspicious chat/payment screenshots
-6. **Document Analysis** — Detects forged offer letters, invoices, certificates
+1. **Text/Message Analysis** - WhatsApp, SMS, and plain text messages
+2. **Email Analysis** - Phishing detection, spoofed senders, malicious links
+3. **Job Posting Analysis** - Fake recruitment scams, unrealistic offers
+4. **URL/Link Analysis** - Dual-source with Gemini AI + VirusTotal (90+ security engines)
+5. **Screenshot Analysis** - Gemini Vision analyzes suspicious chat/payment screenshots
+6. **Document Analysis** - Detects forged offer letters, invoices, certificates
 
 ### 🎯 Key Capabilities
 
-- **Real-time AI Analysis** — Sub-5-second verdict using Google Gemini 2.5 Flash
-- **Dual-Source URL Analysis** — VirusTotal integration for maximum accuracy
-- **Vision-Based Detection** — Gemini Vision analyzes images without OCR
-- **Detailed Red Flags** — Explains *why* content is flagged
-- **Safety Suggestions** — Actionable advice from AI analysis
-- **Scam Score** — 0-100 confidence metric with visual gauge
-- **Scan History** — Paginated list with type/verdict filters
-- **Dashboard Analytics** — Charts showing weekly activity and verdict breakdown
-- **Multi-Image Upload** — Analyze multiple document pages together
-- **User Accounts** — Persistent scan history across sessions
+- **Real-time AI Analysis** - Sub-5-second verdict using Google Gemini 2.5 Flash
+- **Dual-Source URL Analysis** - VirusTotal integration for maximum accuracy
+- **Vision-Based Detection** - Gemini Vision analyzes images without OCR
+- **Detailed Red Flags** - Explains *why* content is flagged
+- **Safety Suggestions** - Actionable advice from AI analysis
+- **Scam Score** - 0-100 confidence metric with visual gauge
+- **Scan History** - Paginated list with type/verdict filters
+- **Dashboard Analytics** - Charts showing weekly activity and verdict breakdown
+- **Multi-Image Upload** - Analyze multiple document pages together
+- **User Accounts** - Persistent scan history across sessions
 
 ---
 
@@ -252,8 +252,8 @@ npm run build
 |--------|----------|------|---------|
 | POST | `/api/user/register` | `{name, email, password}` | `{token, user}` |
 | POST | `/api/user/login` | `{email, password}` | `{token, user}` |
-| GET | `/api/user/profile` | — | `{user}` |
-| DELETE | `/api/user/delete` | — | `{message}` |
+| GET | `/api/user/profile` | - | `{user}` |
+| DELETE | `/api/user/delete` | - | `{message}` |
 
 ### Scan Analysis
 
@@ -270,10 +270,10 @@ npm run build
 
 | Method | Endpoint | Query Params | Returns |
 |--------|----------|--------------|---------|
-| GET | `/api/scan/stats` | — | `{stats, typeStats, weeklyActivity, recentScans}` |
+| GET | `/api/scan/stats` | - | `{stats, typeStats, weeklyActivity, recentScans}` |
 | GET | `/api/scan/history` | `?page=1&type=email&verdict=SCAM` | `{scans, pages, total}` |
-| GET | `/api/scan/:id` | — | `{scan}` |
-| DELETE | `/api/scan/:id` | — | `{message}` |
+| GET | `/api/scan/:id` | - | `{scan}` |
+| DELETE | `/api/scan/:id` | - | `{message}` |
 
 **All endpoints require**: `headers: { token: "jwt_token" }` (except register/login)
 
@@ -415,15 +415,15 @@ GET /api/scan/stats
 
 ### Protected by Default
 
-- ✅ **JWT Authentication** — 7-day expiry, stored in localStorage
-- ✅ **Password Hashing** — bcrypt with 10 rounds
-- ✅ **CORS Enabled** — prevents unauthorized cross-origin requests
-- ✅ **MongoDB Indexing** — compound index on userId + createdAt for query performance
-- ✅ **Ownership Checks** — users can only access their own scans
-- ✅ **API Key Protection** — .env excluded from git
-- ✅ **No Persistent Storage** — uploaded images sent to Gemini then discarded
-- ✅ **Form Validation** — server-side validation on all inputs
-- ✅ **Error Messages** — generic messages (e.g., "Invalid email or password" for both cases)
+- ✅ **JWT Authentication** - 7-day expiry, stored in localStorage
+- ✅ **Password Hashing** - bcrypt with 10 rounds
+- ✅ **CORS Enabled** - prevents unauthorized cross-origin requests
+- ✅ **MongoDB Indexing** - compound index on userId + createdAt for query performance
+- ✅ **Ownership Checks** - users can only access their own scans
+- ✅ **API Key Protection** - .env excluded from git
+- ✅ **No Persistent Storage** - uploaded images sent to Gemini then discarded
+- ✅ **Form Validation** - server-side validation on all inputs
+- ✅ **Error Messages** - generic messages (e.g., "Invalid email or password" for both cases)
 
 ### Best Practices
 

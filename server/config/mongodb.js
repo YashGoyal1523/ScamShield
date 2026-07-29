@@ -1,13 +1,13 @@
 // ============================================================
-// mongodb.js — Handles connection to MongoDB using Mongoose
+// mongodb.js - Handles connection to MongoDB using Mongoose
 // Called once at server startup before the server starts listening
 // ============================================================
 
 import mongoose from 'mongoose' // Mongoose is an ODM (Object Document Mapper) for MongoDB
 
 const connectDB = async () => {
-  // Register an event listener — fires when connection is successfully established
-  // This is separate from the await below — it just logs a confirmation message
+  // Register an event listener - fires when connection is successfully established
+  // This is separate from the await below - it just logs a confirmation message
   mongoose.connection.on('connected', () => {
     console.log('Database Connected')
   })

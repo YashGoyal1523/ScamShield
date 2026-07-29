@@ -1,5 +1,5 @@
 // ============================================================
-// ScanScreenshot.jsx — Scan page for screenshot uploads
+// ScanScreenshot.jsx - Scan page for screenshot uploads
 // Supports drag & drop and multiple image upload
 // Images are stored as File objects and preview blob URLs
 // On submit, all files are sent to backend for Gemini Vision analysis
@@ -19,11 +19,11 @@ const ScanScreenshot = () => {
   // ---- FILE MANAGEMENT STATE ----
   const [files, setFiles] = useState([])         // Array of File objects selected by user
   const [previews, setPreviews] = useState([])   // Array of blob URLs for image previews
-  // Files and previews are kept in sync by index — files[0] shows as previews[0]
+  // Files and previews are kept in sync by index - files[0] shows as previews[0]
 
   const [dragging, setDragging] = useState(false) // true when user is dragging files over the drop zone
 
-  // Reference to hidden file input — used to trigger file picker when user clicks drop zone
+  // Reference to hidden file input - used to trigger file picker when user clicks drop zone
   const inputRef = useRef()
 
   // ---- HANDLE FILES ----
@@ -35,7 +35,7 @@ const ScanScreenshot = () => {
     // If no valid images, exit early
     if (valid.length === 0) return
 
-    // Create blob URLs for each image — these are used for <img src="..."> preview
+    // Create blob URLs for each image - these are used for <img src="..."> preview
     // URL.createObjectURL creates a local reference that the browser can display
     const newPreviews = valid.map(f => URL.createObjectURL(f))
 
@@ -130,17 +130,17 @@ const ScanScreenshot = () => {
 
           {/* Instructions */}
           <p className="text-white font-medium mb-1">Drop screenshots here</p>
-          <p className="text-gray-500 text-sm mb-2">or click to browse — select multiple</p>
-          <p className="text-gray-600 text-xs">JPG, PNG, WEBP — max 5MB each — up to 5 images</p>
+          <p className="text-gray-500 text-sm mb-2">or click to browse - select multiple</p>
+          <p className="text-gray-600 text-xs">JPG, PNG, WEBP - max 5MB each - up to 5 images</p>
 
-          {/* Hidden file input — triggered by click or onChange via dropzone */}
+          {/* Hidden file input - triggered by click or onChange via dropzone */}
           <input
             ref={inputRef}
             type="file"
             accept="image/*"     // Only accept image files
             multiple             // Allow selecting multiple files at once
             onChange={(e) => handleFiles(e.target.files)} // Process selected files
-            className="hidden"   // Hidden from view — only used programmatically
+            className="hidden"   // Hidden from view - only used programmatically
           />
         </div>
 
@@ -160,7 +160,7 @@ const ScanScreenshot = () => {
                   className="w-full h-32 object-cover"  // object-cover crops image to fit thumbnail
                 />
 
-                {/* Remove button — red X in top right corner */}
+                {/* Remove button - red X in top right corner */}
                 <button
                   type="button"
                   onClick={() => removeFile(i)}
@@ -184,7 +184,7 @@ const ScanScreenshot = () => {
             Only shown if at least one image is selected */}
         {previews.length > 0 && (
           <p className="text-gray-500 text-xs mb-4 text-center">
-            {previews.length} image{previews.length > 1 ? 's' : ''} selected — Gemini will analyze all together
+            {previews.length} image{previews.length > 1 ? 's' : ''} selected - Gemini will analyze all together
             {/* Plural "s" only if more than 1 image */}
           </p>
         )}

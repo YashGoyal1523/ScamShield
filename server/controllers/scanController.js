@@ -1,5 +1,5 @@
 // ============================================================
-// scanController.js — Core AI analysis logic for all 6 scan types
+// scanController.js - Core AI analysis logic for all 6 scan types
 // Uses Gemini AI for all analysis + VirusTotal for URL scans
 // ============================================================
 
@@ -8,13 +8,13 @@ import { GoogleGenerativeAI } from '@google/generative-ai' // Google's official 
 import axios from 'axios'                      // HTTP client for VirusTotal API calls
 import scanModel from '../models/scanModel.js' // MongoDB scan model for saving results
 
-// Initialize Gemini client once at the top — reused for all scan requests
+// Initialize Gemini client once at the top - reused for all scan requests
 // The API key is loaded from process.env (set in .env file)
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 
 // ----------------------------------------------------------------
-// buildPrompt — Creates the text prompt sent to Gemini
-// This is "prompt engineering" — carefully crafted instructions
+// buildPrompt - Creates the text prompt sent to Gemini
+// This is "prompt engineering" - carefully crafted instructions
 // to get structured, accurate, balanced responses from the AI
 // ----------------------------------------------------------------
 const buildPrompt = (type, content) => `
@@ -23,13 +23,13 @@ You are a precise and balanced fraud detection AI. Analyze the following ${type}
 Today's date: ${new Date().toDateString()}
 // We include today's date so Gemini doesn't make date-based mistakes (e.g. thinking a past date is "future")
 
-THESE ARE NORMAL — DO NOT FLAG:
+THESE ARE NORMAL - DO NOT FLAG:
 - OTP messages from banks, apps, or services (this is standard authentication)
 - Delivery notifications from Amazon, Flipkart, Swiggy, Zomato, etc.
 - Transactional SMS from banks (debited, credited, balance alerts)
 - Marketing emails from known brands even if promotional or urgent
 - Job offers with reasonable salary, proper company name, no upfront fee
-- Internship offers asking for joining within a week — common in India
+- Internship offers asking for joining within a week - common in India
 - Emails from HR asking for documents like PAN, Aadhaar, college ID
 - Newsletters, subscription confirmations, password reset emails you requested
 - KYC reminders from banks or RBI-regulated apps via official channels
@@ -88,7 +88,7 @@ Rules:
 `
 
 // ----------------------------------------------------------------
-// parseGeminiResponse — Converts Gemini's text output to a JS object
+// parseGeminiResponse - Converts Gemini's text output to a JS object
 // Gemini sometimes wraps JSON in markdown code blocks like ```json ... ```
 // We strip those and parse the clean JSON
 // ----------------------------------------------------------------
@@ -102,13 +102,13 @@ const parseGeminiResponse = (text) => {
     // \{[\s\S]*\} matches everything between the first { and last }
     const jsonMatch = text.match(/\{[\s\S]*\}/)
     if (jsonMatch) return JSON.parse(jsonMatch[0])
-    // If still can't parse, throw an error — caught by the calling function's catch block
+    // If still can't parse, throw an error - caught by the calling function's catch block
     throw new Error('Failed to parse AI response')
   }
 }
 
 // ----------------------------------------------------------------
-// normalizeRedFlags — Handles inconsistent redFlags format from Gemini
+// normalizeRedFlags - Handles inconsistent redFlags format from Gemini
 // Despite our prompt, Gemini sometimes returns strings instead of objects
 // This function converts any format into our expected { flag, explanation } structure
 // ----------------------------------------------------------------
@@ -125,12 +125,12 @@ const normalizeRedFlags = (redFlags) => {
       // Gemini returned the correct format: [{ flag: "...", explanation: "..." }]
       return f
     }
-    return null // Unknown format — filter it out below
+    return null // Unknown format - filter it out below
   }).filter(Boolean) // Remove any null values
 }
 
 // ----------------------------------------------------------------
-// saveScan — Saves the Gemini analysis result to MongoDB
+// saveScan - Saves the Gemini analysis result to MongoDB
 // Called by all 6 scan types after getting Gemini's response
 // ----------------------------------------------------------------
 const saveScan = async (userId, type, content, result) => {
@@ -142,14 +142,14 @@ const saveScan = async (userId, type, content, result) => {
     score: result.score,                  // 0-100 number from Gemini
     explanation: result.explanation,      // Gemini's written analysis
     redFlags: normalizeRedFlags(result.redFlags), // Normalized red flags array
-    suggestions: result.suggestions || [] // Safety suggestions — fallback to empty array
+    suggestions: result.suggestions || [] // Safety suggestions - fallback to empty array
   })
   await scan.save() // Write to MongoDB
   return scan       // Return the saved document (includes MongoDB _id used for navigation)
 }
 
 // ================================================================
-// SCAN CONTROLLERS — One for each of the 6 scan types
+// SCAN CONTROLLERS - One for each of the 6 scan types
 // Pattern: validate input → call Gemini → parse response → save → return
 // ================================================================
 
@@ -160,10 +160,10 @@ const analyzeText = async (req, res) => {
   if (!content) return res.status(400).json({ success: false, message: 'Content is required' })
 
   try {
-    // Get the Gemini model — gemini-2.5-flash is fast and supports the free tier
+    // Get the Gemini model - gemini-2.5-flash is fast and supports the free tier
     const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
 
-    // Send the prompt to Gemini — result.response.text() returns Gemini's text response
+    // Send the prompt to Gemini - result.response.text() returns Gemini's text response
     const result = await model.generateContent(buildPrompt('text message / SMS / WhatsApp message', content))
 
     // Parse Gemini's text response into a JS object
@@ -172,7 +172,7 @@ const analyzeText = async (req, res) => {
     // Save to MongoDB and get the saved document with its _id
     const scan = await saveScan(req.userId, 'text', content, parsed)
 
-    // Return the saved scan — frontend navigates to /result/:id using scan._id
+    // Return the saved scan - frontend navigates to /result/:id using scan._id
     res.status(200).json({ success: true, scan })
   } catch (e) {
     console.error(`[${new Date().toISOString()}] Error:`, e.message)
@@ -234,11 +234,11 @@ const analyzeUrl = async (req, res) => {
         new URLSearchParams({ url: content }),
         { headers: { 'x-apikey': process.env.VIRUSTOTAL_API_KEY, 'Content-Type': 'application/x-www-form-urlencoded' } }
       )
-      // VirusTotal returns an analysis ID — we use this to fetch the results
+      // VirusTotal returns an analysis ID - we use this to fetch the results
       const analysisId = vtSubmit.data.data.id
 
       // ---- Step 2: Wait 3 seconds ----
-      // VirusTotal's 90+ engines need time to scan — if we fetch immediately, results aren't ready
+      // VirusTotal's 90+ engines need time to scan - if we fetch immediately, results aren't ready
       await new Promise(resolve => setTimeout(resolve, 3000))
 
       // ---- Step 3: Fetch analysis results ----
@@ -254,8 +254,8 @@ const analyzeUrl = async (req, res) => {
       vtContext = `\nVirusTotal scan: ${stats.malicious} engines flagged malicious, ${stats.suspicious} flagged suspicious out of ${stats.harmless + stats.malicious + stats.suspicious + stats.undetected} total engines.`
 
     } catch (vtError) {
-      // VirusTotal failure is non-fatal — could be rate limit or API key issue
-      // We log it but continue — Gemini will still analyze the URL without VT data
+      // VirusTotal failure is non-fatal - could be rate limit or API key issue
+      // We log it but continue - Gemini will still analyze the URL without VT data
       console.error('VirusTotal error:', vtError.message)
     }
 
@@ -274,7 +274,7 @@ const analyzeUrl = async (req, res) => {
 }
 
 // ---- SCREENSHOT SCAN ----
-// Uses Gemini Vision to analyze uploaded images — no OCR needed, Gemini reads images directly
+// Uses Gemini Vision to analyze uploaded images - no OCR needed, Gemini reads images directly
 const analyzeScreenshot = async (req, res) => {
   // req.files is populated by multer upload.array() middleware
   if (!req.files || req.files.length === 0) return res.status(400).json({ success: false, message: 'At least one image is required' })
@@ -293,15 +293,15 @@ const analyzeScreenshot = async (req, res) => {
       }
     }))
 
-    // Separate prompt for screenshots — focuses on visual fraud indicators
+    // Separate prompt for screenshots - focuses on visual fraud indicators
     const prompt = `You are a balanced fraud detection AI. Analyze ${req.files.length > 1 ? 'these screenshots' : 'this screenshot'} and give an honest verdict.
 
 Today's date: ${new Date().toDateString()}
 
-THESE ARE NORMAL — DO NOT FLAG:
+THESE ARE NORMAL - DO NOT FLAG:
 - Real UPI payment confirmations from GPay, PhonePe, Paytm, BHIM
 - Legitimate bank transaction screenshots (HDFC, SBI, ICICI, Axis, Kotak)
-- Normal WhatsApp or SMS conversations even if about money — context matters
+- Normal WhatsApp or SMS conversations even if about money - context matters
 - Screenshots of real job offers, invoices, or receipts from known companies
 - Payment requests between friends/family for splitting bills
 
@@ -325,7 +325,7 @@ Respond ONLY with a valid JSON object (no markdown, no extra text):
 Scoring: 0-30 SAFE, 31-60 SUSPICIOUS, 61-100 SCAM. redFlags must be [] if SAFE.
 When uncertain, prefer SAFE or SUSPICIOUS over SCAM.`
 
-    // Spread imageParts — Gemini receives [prompt, image1, image2, ...]
+    // Spread imageParts - Gemini receives [prompt, image1, image2, ...]
     // Gemini Vision analyzes ALL images together as a single combined analysis
     const result = await model.generateContent([prompt, ...imageParts])
     const parsed = parseGeminiResponse(result.response.text())
@@ -334,7 +334,7 @@ When uncertain, prefer SAFE or SUSPICIOUS over SCAM.`
     // Fallback to originalname from multer if fileNames not provided
     const fileNames = req.body.fileNames || req.files.map(f => f.originalname).join(', ')
 
-    // Save file names as content — user can see which files were analyzed in history
+    // Save file names as content - user can see which files were analyzed in history
     const scan = await saveScan(req.userId, 'screenshot', fileNames, parsed)
     res.status(200).json({ success: true, scan })
 
@@ -355,17 +355,17 @@ const analyzeDocument = async (req, res) => {
       inlineData: { data: file.buffer.toString('base64'), mimeType: file.mimetype }
     }))
 
-    // Separate prompt for documents — focuses on document forgery indicators
+    // Separate prompt for documents - focuses on document forgery indicators
     // Includes Indian-specific context (PAN, Aadhaar, remote work + office address)
     const prompt = `You are an expert fraud and document forgery detection AI. Analyze ${req.files.length > 1 ? 'these document images' : 'this document image'} for signs of forgery or fraud.
 
 Today's date: ${new Date().toDateString()}
 
-IMPORTANT — These are NORMAL and should NOT be flagged:
-- Company having both a registered office address AND offering remote work — this is standard
-- Short acceptance deadlines (2-5 days) for job or internship offers — this is common
-- Requesting PAN card, Aadhaar, college ID, or bank details for onboarding — legally required in India
-- Internship stipends that seem low or high — not a fraud indicator
+IMPORTANT - These are NORMAL and should NOT be flagged:
+- Company having both a registered office address AND offering remote work - this is standard
+- Short acceptance deadlines (2-5 days) for job or internship offers - this is common
+- Requesting PAN card, Aadhaar, college ID, or bank details for onboarding - legally required in India
+- Internship stipends that seem low or high - not a fraud indicator
 - Do NOT speculate about future scams that haven't happened in the document
 
 Only flag as SCAM if there is clear evidence of:
@@ -423,7 +423,7 @@ const getScanHistory = async (req, res) => {
       .skip((page - 1) * limit)             // Skip scans from previous pages
       .limit(limit)                          // Only return 10 scans
       .select('type verdict score content createdAt')
-      // .select() — only return these fields; leave out redFlags, suggestions, explanation
+      // .select() - only return these fields; leave out redFlags, suggestions, explanation
       // This reduces response size for the list view (full data fetched on result page)
 
     // pages = total number of pages for frontend pagination buttons
@@ -470,7 +470,7 @@ const deleteScan = async (req, res) => {
 // Runs 7 MongoDB queries simultaneously using Promise.all for performance
 const getDashboardStats = async (req, res) => {
   try {
-    // Convert string userId to MongoDB ObjectId — required for aggregation pipeline $match
+    // Convert string userId to MongoDB ObjectId - required for aggregation pipeline $match
     // req.userId comes from JWT as a string, but MongoDB stores it as ObjectId
     const userId = new mongoose.Types.ObjectId(req.userId)
 
@@ -490,7 +490,7 @@ const getDashboardStats = async (req, res) => {
       // 4. Safe count
       scanModel.countDocuments({ userId, verdict: 'SAFE' }),
 
-      // 5. Scan count grouped by type — used for horizontal bar chart
+      // 5. Scan count grouped by type - used for horizontal bar chart
       // $match: filter by userId
       // $group: group documents by type field, count each group
       // Result: [{ _id: 'email', count: 5 }, { _id: 'url', count: 3 }, ...]
@@ -499,7 +499,7 @@ const getDashboardStats = async (req, res) => {
         { $group: { _id: '$type', count: { $sum: 1 } } }
       ]),
 
-      // 6. Daily scan counts for last 7 days — used for weekly bar chart
+      // 6. Daily scan counts for last 7 days - used for weekly bar chart
       // $match: only scans from last 7 days
       // $group: group by date string (formatted as YYYY-MM-DD), count each day
       // $sort: sort chronologically so chart shows oldest to newest
@@ -531,8 +531,8 @@ const getDashboardStats = async (req, res) => {
     res.status(200).json({
       success: true,
       stats: { total, scams, suspicious, safe }, // Summary numbers for stat cards
-      typeStats,      // Array for bar chart — scan types breakdown
-      weeklyActivity, // Array for bar chart — last 7 days activity
+      typeStats,      // Array for bar chart - scan types breakdown
+      weeklyActivity, // Array for bar chart - last 7 days activity
       recentScans     // Array for recent scans list
     })
 

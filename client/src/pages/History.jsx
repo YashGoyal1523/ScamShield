@@ -1,5 +1,5 @@
 // ============================================================
-// History.jsx — Paginated list of all user's past scans with filters
+// History.jsx - Paginated list of all user's past scans with filters
 // Allows filtering by type and verdict, 10 scans per page
 // Delete button on each row removes scan immediately
 // ============================================================
@@ -204,7 +204,7 @@ const History = () => {
       {/* ========== SCANS LIST ========== */}
 
       {loading ? (
-        // Loading skeleton — 5 placeholder rows
+        // Loading skeleton - 5 placeholder rows
         <div className="flex flex-col gap-3">
           {[...Array(5)].map((_, i) => (
             <div key={i} className="bg-[#1a1a1a] rounded-xl h-16 animate-pulse" />
@@ -225,7 +225,7 @@ const History = () => {
         </div>
 
       ) : (
-        // Scan list — table-like rows
+        // Scan list - table-like rows
         <div className="bg-[#1a1a1a] border border-white/10 rounded-2xl overflow-hidden">
           {scans.map((scan, i) => (
             // Each scan is a clickable row linking to result page
@@ -236,7 +236,7 @@ const History = () => {
               }`}
             >
 
-              {/* Left side: Type badge + Content preview — clickable to open panel */}
+              {/* Left side: Type badge + Content preview - clickable to open panel */}
               <button
                 onClick={() => handleOpenScan(scan._id)}
                 className="flex items-center gap-4 min-w-0 flex-1 hover:bg-white/5 -mx-5 px-5 py-1 rounded-lg transition-colors text-left bg-transparent border-none cursor-pointer"
@@ -267,7 +267,7 @@ const History = () => {
                 {/* Score out of 100 */}
                 <span className="text-gray-600 text-xs w-12 text-right">{scan.score}/100</span>
 
-                {/* Date — hidden on mobile */}
+                {/* Date - hidden on mobile */}
                 <span className="text-gray-700 text-xs hidden sm:block">
                   {new Date(scan.createdAt).toLocaleDateString()}
                 </span>
@@ -295,7 +295,7 @@ const History = () => {
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-2 mt-6">
 
-          {/* Previous button — disabled on page 1 */}
+          {/* Previous button - disabled on page 1 */}
           <button
             onClick={() => setPage(p => Math.max(1, p - 1))}
             disabled={page === 1}
@@ -309,7 +309,7 @@ const History = () => {
             Page {page} of {totalPages}
           </span>
 
-          {/* Next button — disabled on last page */}
+          {/* Next button - disabled on last page */}
           <button
             onClick={() => setPage(p => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}

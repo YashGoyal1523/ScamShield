@@ -1,5 +1,5 @@
 // ============================================================
-// Profile.jsx — User account profile and settings page
+// Profile.jsx - User account profile and settings page
 // Shows user info, scan stats, and account management options
 // Delete account permanently removes user and all scans from DB
 // ============================================================
@@ -87,7 +87,7 @@ const Profile = () => {
       <div className="bg-[#1a1a1a] border border-white/10 rounded-2xl p-6 mb-6">
         <div className="flex items-center gap-5">
 
-          {/* User avatar — gradient square with first initial */}
+          {/* User avatar - gradient square with first initial */}
           <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-blue-500 to-blue-700 flex items-center justify-center">
             <span className="text-white text-2xl font-bold">
               {user?.name?.charAt(0).toUpperCase() || 'U'}
@@ -95,7 +95,7 @@ const Profile = () => {
             </span>
           </div>
 
-          {/* User info — name, email, join date */}
+          {/* User info - name, email, join date */}
           <div>
             {/* Full name */}
             <h2 className="text-white text-xl font-semibold">{user?.name || 'User'}</h2>
@@ -103,12 +103,12 @@ const Profile = () => {
             {/* Email address */}
             <p className="text-gray-500 text-sm">{user?.email || ''}</p>
 
-            {/* Member since date — formatted as "June 2026" */}
+            {/* Member since date - formatted as "June 2026" */}
             <p className="text-gray-600 text-xs mt-1">
               Member since {
                 user?.createdAt
                   ? new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
-                  : '—'
+                  : '-'
               }
             </p>
           </div>
@@ -127,19 +127,19 @@ const Profile = () => {
             <p className="text-gray-500 text-xs mt-1">Total Scans</p>
           </div>
 
-          {/* Scams found card — red theme */}
+          {/* Scams found card - red theme */}
           <div className="bg-[#1a1a1a] border border-red-500/20 rounded-xl p-4 text-center">
             <p className="text-2xl font-bold text-red-500">{stats.scams}</p>
             <p className="text-gray-500 text-xs mt-1">Scams Caught</p>
           </div>
 
-          {/* Suspicious card — orange theme */}
+          {/* Suspicious card - orange theme */}
           <div className="bg-[#1a1a1a] border border-orange-500/20 rounded-xl p-4 text-center">
             <p className="text-2xl font-bold text-orange-500">{stats.suspicious}</p>
             <p className="text-gray-500 text-xs mt-1">Suspicious</p>
           </div>
 
-          {/* Safe card — green theme */}
+          {/* Safe card - green theme */}
           <div className="bg-[#1a1a1a] border border-green-500/20 rounded-xl p-4 text-center">
             <p className="text-2xl font-bold text-green-500">{stats.safe}</p>
             <p className="text-gray-500 text-xs mt-1">Safe</p>
@@ -185,7 +185,7 @@ const Profile = () => {
       {/* Delete button with confirmation dialog */}
 
       {!showDeleteConfirm ? (
-        // Delete button — initially shown
+        // Delete button - initially shown
         <button
           onClick={() => setShowDeleteConfirm(true)}
           className="w-full text-gray-600 hover:text-red-400 text-sm transition-colors py-2"
@@ -193,7 +193,7 @@ const Profile = () => {
           Delete Account
         </button>
       ) : (
-        // Confirmation dialog — appears after clicking Delete Account
+        // Confirmation dialog - appears after clicking Delete Account
         <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-5">
 
           {/* Warning heading */}
@@ -207,7 +207,7 @@ const Profile = () => {
           {/* Action buttons */}
           <div className="flex gap-3">
 
-            {/* Cancel button — hides confirmation dialog */}
+            {/* Cancel button - hides confirmation dialog */}
             <button
               onClick={() => setShowDeleteConfirm(false)}
               className="flex-1 bg-white/5 hover:bg-white/10 text-gray-400 py-2.5 rounded-lg text-sm transition-colors"
@@ -215,7 +215,7 @@ const Profile = () => {
               Cancel
             </button>
 
-            {/* Confirm delete button — actually deletes account */}
+            {/* Confirm delete button - actually deletes account */}
             <button
               onClick={handleDeleteAccount}
               disabled={deleteLoading}

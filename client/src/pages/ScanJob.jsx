@@ -1,5 +1,5 @@
 // ============================================================
-// ScanJob.jsx — Scan page for job postings
+// ScanJob.jsx - Scan page for job postings
 // Detects fake recruitment scams, upfront fee demands, unrealistic promises
 // Similar to ScanText but sends type 'job' with job-specific analysis
 // ============================================================
@@ -24,7 +24,7 @@ const ScanJob = () => {
     e.preventDefault()
     if (!content.trim()) return
 
-    // Submit with type 'job' — backend analyzes for fake recruitment patterns
+    // Submit with type 'job' - backend analyzes for fake recruitment patterns
     await submitTextScan('job', content)
   }
 
@@ -63,7 +63,7 @@ const ScanJob = () => {
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="Paste the job posting here — include salary, requirements, company name, and contact details..."
+            placeholder="Paste the job posting here - include salary, requirements, company name, and contact details..."
             rows={12}
             className="w-full bg-transparent px-4 py-3 text-white placeholder-gray-600 text-sm resize-none focus:outline-none"
           />
@@ -72,7 +72,7 @@ const ScanJob = () => {
           <div className="flex items-center justify-between px-4 pb-3">
             <span className="text-gray-600 text-xs">{content.length} characters</span>
 
-            {/* Try example button — shows a sample fake job scam */}
+            {/* Try example button - shows a sample fake job scam */}
             <button
               type="button"
               onClick={() => setContent(exampleContent.job)}
@@ -83,7 +83,7 @@ const ScanJob = () => {
           </div>
         </div>
 
-        {/* Submit button — orange theme for job */}
+        {/* Submit button - orange theme for job */}
         <button
           type="submit"
           disabled={scanLoading || !content.trim()}

@@ -1,5 +1,5 @@
 // ============================================================
-// Footer.jsx — Bottom footer section shown on every page
+// Footer.jsx - Bottom footer section shown on every page
 // Displays branding, tagline, and credits
 // ============================================================
 

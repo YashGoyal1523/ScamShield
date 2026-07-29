@@ -1,5 +1,5 @@
 // ============================================================
-// server.js — Main entry point for the ScamShield backend
+// server.js - Main entry point for the ScamShield backend
 // This file sets up Express, connects middleware, mounts routes,
 // and starts the server after connecting to MongoDB
 // ============================================================
@@ -27,7 +27,7 @@ app.use(express.json({ limit: '10mb' }))
 // limit: '10mb' because large text content can be pasted in scan forms
 
 // ---- Routes ----
-// Mount routers — all requests starting with these paths go to respective routers
+// Mount routers - all requests starting with these paths go to respective routers
 
 app.use('/api/user', userRouter)
 // Handles: POST /api/user/register, POST /api/user/login,
@@ -39,7 +39,7 @@ app.use('/api/scan', scanRouter)
 //          DELETE /api/scan/:id
 
 app.get('/', (req, res) => res.send('ScamShield API working'))
-// Simple health check — visiting the root URL confirms the server is running
+// Simple health check - visiting the root URL confirms the server is running
 
 // ---- Global Error Handler ----
 // This MUST have 4 parameters (err, req, res, next) for Express to treat it as error handler

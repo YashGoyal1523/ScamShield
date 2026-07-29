@@ -1,4 +1,4 @@
-// Root component — defines all routes and renders global layout (Navbar, Footer, Login modal)
+// Root component - defines all routes and renders global layout (Navbar, Footer, Login modal)
 import { Routes, Route } from 'react-router-dom'
 import { useContext } from 'react'
 import { ToastContainer } from 'react-toastify'
@@ -25,10 +25,10 @@ const App = () => {
     <div className="flex flex-col min-h-screen bg-[#0f0f0f] text-white">
       <Navbar />
 
-      {/* Login modal — conditionally rendered when showLogin is true */}
+      {/* Login modal - conditionally rendered when showLogin is true */}
       {showLogin && <Login />}
 
-      {/* All page routes — flex-1 pushes footer to bottom */}
+      {/* All page routes - flex-1 pushes footer to bottom */}
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -47,7 +47,7 @@ const App = () => {
 
       <Footer />
 
-      {/* Global toast notification container — appears bottom-right */}
+      {/* Global toast notification container - appears bottom-right */}
       <ToastContainer position="bottom-right" theme="dark" />
     </div>
   )

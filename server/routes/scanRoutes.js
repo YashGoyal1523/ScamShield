@@ -1,5 +1,5 @@
 // ============================================================
-// scanRoutes.js — Defines all HTTP routes for scan operations
+// scanRoutes.js - Defines all HTTP routes for scan operations
 // Mounted at /api/scan in server.js
 // ============================================================
 
@@ -19,7 +19,7 @@ const upload = multer({
   storage: multer.memoryStorage(),
   // memoryStorage() keeps files in RAM as Buffer objects (req.files[].buffer)
   // We chose this instead of disk storage because:
-  // 1. We never store images permanently — they're sent to Gemini and discarded
+  // 1. We never store images permanently - they're sent to Gemini and discarded
   // 2. No need to manage file paths or cleanup
   // 3. Images are accessed directly from memory, converted to base64, and sent to Gemini
 
@@ -28,11 +28,11 @@ const upload = multer({
   // Prevents memory issues from oversized uploads
 
   fileFilter: (req, file, cb) => {
-    // cb is a callback — cb(null, true) accepts the file, cb(new Error()) rejects it
+    // cb is a callback - cb(null, true) accepts the file, cb(new Error()) rejects it
     if (file.mimetype.startsWith('image/')) {
-      cb(null, true)  // Accept — mimetype is image/jpeg, image/png, image/webp etc.
+      cb(null, true)  // Accept - mimetype is image/jpeg, image/png, image/webp etc.
     } else {
-      cb(new Error('Only image files are allowed')) // Reject — not an image
+      cb(new Error('Only image files are allowed')) // Reject - not an image
     }
   }
 })
@@ -49,11 +49,11 @@ const handleMulterError = (err, req, res, next) => {
     // Our custom error from the fileFilter function above
     return res.status(400).json({ success: false, message: err.message })
   }
-  next(err) // Unknown error — pass to Express global error handler
+  next(err) // Unknown error - pass to Express global error handler
 }
 
 // ---- Text-based Scan Routes ----
-// All require auth — users must be logged in to run scans
+// All require auth - users must be logged in to run scans
 // These send JSON body { content: "..." } to the controller
 scanRouter.post('/text', userAuth, analyzeText)
 scanRouter.post('/email', userAuth, analyzeEmail)
@@ -62,7 +62,7 @@ scanRouter.post('/url', userAuth, analyzeUrl)
 
 // ---- File Upload Scan Routes ----
 // Middleware chain: userAuth → upload.array → handleMulterError → controller
-// upload.array('files', 5) — field name is 'files', max 5 files per request
+// upload.array('files', 5) - field name is 'files', max 5 files per request
 // Populates req.files as an array of file objects with .buffer, .mimetype, .originalname
 scanRouter.post('/screenshot', userAuth, upload.array('files', 5), handleMulterError, analyzeScreenshot)
 scanRouter.post('/document', userAuth, upload.array('files', 5), handleMulterError, analyzeDocument)
@@ -73,7 +73,7 @@ scanRouter.post('/document', userAuth, upload.array('files', 5), handleMulterErr
 // and call getScanById instead of the correct handler
 scanRouter.get('/stats', userAuth, getDashboardStats)   // GET /api/scan/stats
 scanRouter.get('/history', userAuth, getScanHistory)    // GET /api/scan/history?type=&verdict=&page=
-scanRouter.get('/:id', userAuth, getScanById)           // GET /api/scan/:id — single scan by MongoDB _id
+scanRouter.get('/:id', userAuth, getScanById)           // GET /api/scan/:id - single scan by MongoDB _id
 scanRouter.delete('/:id', userAuth, deleteScan)         // DELETE /api/scan/:id
 
 export default scanRouter

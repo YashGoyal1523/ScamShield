@@ -1,5 +1,5 @@
 // ============================================================
-// Login.jsx — Modal for user authentication (Login + Register)
+// Login.jsx - Modal for user authentication (Login + Register)
 // Appears as a modal overlay when user clicks Login or Get Started
 // ============================================================
 
@@ -16,15 +16,15 @@ const Login = () => {
   // Navigate to dashboard after successful login/register
   const navigate = useNavigate()
 
-  // Toggle between 'Login' and 'Register' modes — starts with initialAuthMode from context
+  // Toggle between 'Login' and 'Register' modes - starts with initialAuthMode from context
   const [state, setState] = useState(initialAuthMode)
 
-  // Form field states — controlled components, React manages their values
+  // Form field states - controlled components, React manages their values
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  // Prevent double-submit — disabled button while request is pending
+  // Prevent double-submit - disabled button while request is pending
   const [loading, setLoading] = useState(false)
 
   const [showPassword, setShowPassword] = useState(false)
@@ -35,7 +35,7 @@ const Login = () => {
     setState(initialAuthMode)
   }, [initialAuthMode])
 
-  // Form submission handler — runs on Register or Login button click
+  // Form submission handler - runs on Register or Login button click
   const onSubmitHandler = async (e) => {
     e.preventDefault()
     // e.preventDefault() stops page reload that form submission normally causes
@@ -55,7 +55,7 @@ const Login = () => {
           // Save token to localStorage so it persists across page reloads
           localStorage.setItem('token', data.token)
 
-          // Update global state — triggers loadUserData via useEffect in AppContext
+          // Update global state - triggers loadUserData via useEffect in AppContext
           setToken(data.token)
           setUser(data.user)
 
@@ -68,7 +68,7 @@ const Login = () => {
           // Show success toast notification
           toast.success(data.message)
         } else {
-          // Server returned success: false — display error message from server
+          // Server returned success: false - display error message from server
           toast.error(data.message)
         }
 
@@ -77,7 +77,7 @@ const Login = () => {
         const { data } = await axios.post(backendUrl + '/api/user/register', { name, email, password })
 
         if (data.success) {
-          // Same flow as login — save token, update state, close modal, navigate to dashboard
+          // Same flow as login - save token, update state, close modal, navigate to dashboard
           localStorage.setItem('token', data.token)
           setToken(data.token)
           setUser(data.user)
@@ -90,11 +90,11 @@ const Login = () => {
       }
 
     } catch (e) {
-      // Network error or JSON parsing error — display to user
+      // Network error or JSON parsing error - display to user
       toast.error(e.message)
 
     } finally {
-      // ALWAYS runs after try/catch — whether success or failure
+      // ALWAYS runs after try/catch - whether success or failure
       // Disable loading state and re-enable button
       setLoading(false)
     }
@@ -133,7 +133,7 @@ const Login = () => {
             </p>
           </div>
 
-          {/* Close button (X) — closes modal */}
+          {/* Close button (X) - closes modal */}
           <button
             onClick={() => setShowLogin(false)}
             className="text-gray-500 hover:text-white text-xl transition-colors"
@@ -157,7 +157,7 @@ const Login = () => {
               onChange={(e) => setName(e.target.value)}
               // onChange updates the name state as user types
               required
-              // HTML5 validation — form won't submit if empty
+              // HTML5 validation - form won't submit if empty
               className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-500 transition-colors"
             />
           )}
@@ -213,7 +213,7 @@ const Login = () => {
             {loading ? (
               // Show spinner and "Please wait..." while request is pending
               <>
-                {/* Spinning circle loader — w-4 h-4 makes it small */}
+                {/* Spinning circle loader - w-4 h-4 makes it small */}
                 <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 Please wait...
               </>

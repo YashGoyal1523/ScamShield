@@ -1,5 +1,5 @@
 // ============================================================
-// Result.jsx — Displays detailed AI analysis of a single scan
+// Result.jsx - Displays detailed AI analysis of a single scan
 // Route: /result/:id where :id is the MongoDB scan _id
 // ============================================================
 
@@ -71,7 +71,7 @@ ${scan.suggestions.map((s, i) => `${i + 1}. ${s}`).join('\n')}`
       setTimeout(() => setCopied(false), 2000)
       toast.success('Report copied to clipboard')
     } catch {
-      toast.error('Could not copy — please copy manually')
+      toast.error('Could not copy - please copy manually')
     }
   }
 

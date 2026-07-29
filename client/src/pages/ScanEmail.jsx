@@ -1,5 +1,5 @@
 // ============================================================
-// ScanEmail.jsx — Scan page for emails
+// ScanEmail.jsx - Scan page for emails
 // Detects phishing, spoofed senders, malicious links
 // Similar to ScanText but sends type 'email' with email-specific analysis
 // ============================================================
@@ -24,7 +24,7 @@ const ScanEmail = () => {
     e.preventDefault()
     if (!content.trim()) return
 
-    // Submit with type 'email' — backend analyzes for phishing, spoofing, malicious links
+    // Submit with type 'email' - backend analyzes for phishing, spoofing, malicious links
     await submitTextScan('email', content)
   }
 
@@ -65,7 +65,7 @@ const ScanEmail = () => {
             onChange={(e) => setContent(e.target.value)}
             // Helpful placeholder showing what to include
             placeholder={`Paste the email here, including:\n- From: sender@domain.com\n- Subject: ...\n- Body of the email`}
-            rows={12}  // Taller than text messages — emails are longer
+            rows={12}  // Taller than text messages - emails are longer
             className="w-full bg-transparent px-4 py-3 text-white placeholder-gray-600 text-sm resize-none focus:outline-none"
           />
 
@@ -73,7 +73,7 @@ const ScanEmail = () => {
           <div className="flex items-center justify-between px-4 pb-3">
             <span className="text-gray-600 text-xs">{content.length} characters</span>
 
-            {/* Try example button — shows a sample phishing email */}
+            {/* Try example button - shows a sample phishing email */}
             <button
               type="button"
               onClick={() => setContent(exampleContent.email)}
@@ -84,7 +84,7 @@ const ScanEmail = () => {
           </div>
         </div>
 
-        {/* Submit button — purple theme for email */}
+        {/* Submit button - purple theme for email */}
         <button
           type="submit"
           disabled={scanLoading || !content.trim()}

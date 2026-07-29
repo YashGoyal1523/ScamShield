@@ -1,5 +1,5 @@
 // ============================================================
-// AppContext.jsx — Global state management for the entire app
+// AppContext.jsx - Global state management for the entire app
 // Stores authentication, user data, and provides scan submission functions
 // Wrapped around entire app in main.jsx
 // ============================================================
@@ -47,14 +47,14 @@ export default function AppContextProvider({ children }) {
   // If token is expired/invalid, clears auth state silently
   const loadUserData = async () => {
     try {
-      // GET /api/user/profile — backend verifies JWT and returns user data
+      // GET /api/user/profile - backend verifies JWT and returns user data
       const { data } = await axios.get(
         backendUrl + '/api/user/profile',
         { headers: { token } }
       )
 
       if (data.success) {
-        // Token is valid — store user data in state
+        // Token is valid - store user data in state
         setUser(data.user)
       } else {
         // Backend returned success: false (shouldn't happen for profile endpoint)
@@ -66,7 +66,7 @@ export default function AppContextProvider({ children }) {
     } catch (e) {
       // Network error or token verification failed
       // Backend returns 401 if token is expired/invalid
-      // silently clear auth state — no need to spam user with error message
+      // silently clear auth state - no need to spam user with error message
       localStorage.removeItem('token')
       setToken('')
       setUser(null)
@@ -97,7 +97,7 @@ export default function AppContextProvider({ children }) {
   const submitTextScan = async (type, content) => {
     // Check if user is logged in
     if (!token) {
-      // Not logged in — show login modal instead of trying API call
+      // Not logged in - show login modal instead of trying API call
       setShowLogin(true)
       return
     }
@@ -119,14 +119,14 @@ export default function AppContextProvider({ children }) {
         // Navigate to result page using the scan's MongoDB _id
         navigate(`/result/${data.scan._id}`)
       } else {
-        // Server returned success: false — display error message
+        // Server returned success: false - display error message
         toast.error(data.message)
       }
     } catch (e) {
       // Network error or JSON parsing error
       toast.error(e.message)
     } finally {
-      // ALWAYS clear loading state — whether success or failure
+      // ALWAYS clear loading state - whether success or failure
       // finally ensures this runs even if an exception is thrown
       setScanLoading(false)
     }
@@ -198,7 +198,7 @@ export default function AppContextProvider({ children }) {
       loadUserData()
     }
   }, [token])
-  // Dependency: [token] — re-run whenever token changes
+  // Dependency: [token] - re-run whenever token changes
 
   // ========== CONTEXT VALUE ==========
   // Object containing all state and functions that will be shared with the entire app

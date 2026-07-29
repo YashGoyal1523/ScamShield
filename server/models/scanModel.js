@@ -1,5 +1,5 @@
 // ============================================================
-// scanModel.js — Defines the MongoDB schema for scan results
+// scanModel.js - Defines the MongoDB schema for scan results
 // Every time a user scans content, a scan document is created
 // ============================================================
 
@@ -9,14 +9,14 @@ import mongoose from 'mongoose'
 const scanSchema = new mongoose.Schema({
 
   userId: {
-    type: mongoose.Schema.Types.ObjectId, // MongoDB ObjectId type — references user document
+    type: mongoose.Schema.Types.ObjectId, // MongoDB ObjectId type - references user document
     ref: 'user',                          // Links to the 'user' model (for populate() if needed)
     required: true                        // Every scan must belong to a user
   },
 
   type: {
     type: String,
-    // Only these 6 values are allowed — Mongoose rejects any other value
+    // Only these 6 values are allowed - Mongoose rejects any other value
     enum: ['text', 'email', 'job', 'url', 'screenshot', 'document'],
     required: true
   },
@@ -64,7 +64,7 @@ const scanSchema = new mongoose.Schema({
 // Compound index on userId + createdAt (descending)
 // This dramatically speeds up history and dashboard queries because:
 // - Most queries filter by userId AND sort by date
-// - Without index, MongoDB would scan ALL documents — with index it's instant
+// - Without index, MongoDB would scan ALL documents - with index it's instant
 // { userId: 1, createdAt: -1 } means: sort userId ascending, createdAt newest first
 scanSchema.index({ userId: 1, createdAt: -1 })
 

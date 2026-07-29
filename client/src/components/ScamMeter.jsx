@@ -1,5 +1,5 @@
 // ============================================================
-// ScamMeter.jsx — Animated SVG gauge showing scam score 0-100
+// ScamMeter.jsx - Animated SVG gauge showing scam score 0-100
 // Semicircle with colored fill + rotating needle
 // Used on Result page to show the AI's confidence score
 // ============================================================

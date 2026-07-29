@@ -1,5 +1,5 @@
 // ============================================================
-// Dashboard.jsx — Main dashboard showing scan analytics and stats
+// Dashboard.jsx - Main dashboard showing scan analytics and stats
 // Fetches all data from /api/scan/stats (7 parallel MongoDB queries)
 // Displays stat cards, charts, scan shortcuts, and recent scans
 // ============================================================
@@ -206,19 +206,19 @@ const Dashboard = () => {
           <p className="text-3xl font-bold text-white">{stats?.stats.total || 0}</p>
         </div>
 
-        {/* Scams found card — red theme */}
+        {/* Scams found card - red theme */}
         <div className="bg-[#1a1a1a] border border-red-500/20 rounded-xl p-5">
           <p className="text-gray-500 text-xs mb-2">Scams Found</p>
           <p className="text-3xl font-bold text-red-500">{stats?.stats.scams || 0}</p>
         </div>
 
-        {/* Suspicious card — orange theme */}
+        {/* Suspicious card - orange theme */}
         <div className="bg-[#1a1a1a] border border-orange-500/20 rounded-xl p-5">
           <p className="text-gray-500 text-xs mb-2">Suspicious</p>
           <p className="text-3xl font-bold text-orange-500">{stats?.stats.suspicious || 0}</p>
         </div>
 
-        {/* Safe card — green theme */}
+        {/* Safe card - green theme */}
         <div className="bg-[#1a1a1a] border border-green-500/20 rounded-xl p-5">
           <p className="text-gray-500 text-xs mb-2">Safe</p>
           <p className="text-3xl font-bold text-green-500">{stats?.stats.safe || 0}</p>
@@ -235,12 +235,12 @@ const Dashboard = () => {
           <h3 className="text-white font-medium mb-4 text-sm">Weekly Activity</h3>
 
           {weeklyData.length > 0 ? (
-            // Bar chart — ResponsiveContainer makes it responsive to window size
+            // Bar chart - ResponsiveContainer makes it responsive to window size
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={weeklyData}>
                 {/* X-axis shows dates (MM-DD format) */}
                 <XAxis dataKey="date" stroke="#555" tick={{ fill: '#888', fontSize: 11 }} />
-                {/* Y-axis shows scan count — allowDecimals={false} shows whole numbers only */}
+                {/* Y-axis shows scan count - allowDecimals={false} shows whole numbers only */}
                 <YAxis stroke="#555" tick={{ fill: '#888', fontSize: 11 }} allowDecimals={false} />
                 {/* Tooltip shows on hover */}
                 <Tooltip
@@ -357,7 +357,7 @@ const Dashboard = () => {
                     {scan.type}
                   </span>
 
-                  {/* Content preview — shows first 50 chars, truncated with ... */}
+                  {/* Content preview - shows first 50 chars, truncated with ... */}
                   <span className="text-gray-400 text-sm truncate max-w-60">
                     {scan.content?.slice(0, 50) || 'Image scan'}
                     {scan.content?.length > 50 ? '...' : ''}

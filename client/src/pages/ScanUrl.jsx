@@ -1,5 +1,5 @@
 // ============================================================
-// ScanUrl.jsx — Scan page for URLs
+// ScanUrl.jsx - Scan page for URLs
 // Uses both Gemini AI and VirusTotal for dual-source analysis
 // Backend submits URL to VirusTotal, waits 3 seconds, fetches results, then passes to Gemini
 // ============================================================
@@ -12,7 +12,7 @@ const ScanUrl = () => {
   // Get submit function and loading state from global context
   const { submitTextScan, scanLoading } = useContext(AppContext)
 
-  // Input field for URL — single line input instead of textarea
+  // Input field for URL - single line input instead of textarea
   const [url, setUrl] = useState('')
 
   // Navigation hook
@@ -23,7 +23,7 @@ const ScanUrl = () => {
     e.preventDefault()
     if (!url.trim()) return
 
-    // Submit with type 'url' — backend does VirusTotal + Gemini analysis
+    // Submit with type 'url' - backend does VirusTotal + Gemini analysis
     await submitTextScan('url', url)
   }
 
@@ -88,7 +88,7 @@ const ScanUrl = () => {
             className="flex-1 bg-transparent py-4 text-white placeholder-gray-600 text-sm focus:outline-none"
           />
 
-          {/* Clear button — only shows when there's text in the input */}
+          {/* Clear button - only shows when there's text in the input */}
           {url && (
             <button
               type="button"
@@ -101,7 +101,7 @@ const ScanUrl = () => {
           )}
         </div>
 
-        {/* Try example button — separate element, not in the input box */}
+        {/* Try example button - separate element, not in the input box */}
         <button
           type="button"
           onClick={() => setUrl('http://sbi-secure-login.xyz/verify')}
@@ -111,7 +111,7 @@ const ScanUrl = () => {
           Try an example
         </button>
 
-        {/* Submit button — yellow theme for URL */}
+        {/* Submit button - yellow theme for URL */}
         <button
           type="submit"
           disabled={scanLoading || !url.trim()}
